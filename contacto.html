@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ADDEREIN | Contacto</title>
+  <meta name="description" content="Formulario de contacto para proyectos de telecomunicaciones y control.">
+  <meta name="theme-color" content="#070d1a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="sources/css/main.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="index.html" aria-label="Inicio ADDEREIN"><img src="sources/images/addereinlemaspanishtransparent_22289LOGO.png" alt="ADDEREIN"></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menu">===</button>
+      <nav id="main-nav" class="main-nav" aria-label="Navegacion principal">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="nosotros/index.html">Nosotros</a></li>
+          <li><a href="tecnologia/index.html">Tecnologia</a></li>
+          <li><a href="servicios/index.html">Servicios</a></li>
+          <li><a href="outsourcing.html">Outsourcing</a></li>
+          <li><a href="sectores.html">Sectores</a></li>
+          <li><a href="experiencia.html">Experiencia</a></li>
+          <li><a href="contacto.html" aria-current="page">Contacto</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn-primary header-cta" href="contacto.html">Solicitar reunion</a>
+    </div>
+  </header>
+
+  <section class="page-hero" style="--hero-image: url('sources/images/calidad-satisfaccion_4.jpg');">
+    <div class="hero-bg" role="presentation"></div>
+    <div class="container hero-content reveal">
+      <p class="eyebrow">Contacto</p>
+      <h1>Cuentanos tu reto tecnico y te responderemos con una propuesta clara.</h1>
+    </div>
+  </section>
+
+  <main>
+    <section class="section">
+      <div class="container split">
+        <article class="panel reveal">
+          <h2 class="section-title">Formulario de contacto</h2>
+          <p class="section-lead">Sin correo en texto plano. Usa este formulario y te contactaremos en breve.</p>
+          <!-- EDITAR: Integrar action real del formulario -->
+          <form action="#" method="post" class="list-lines" aria-label="Formulario de contacto">
+            <label>Nombre completo
+              <input type="text" name="nombre" required style="width:100%;margin-top:.35rem;padding:.75rem;border-radius:8px;border:1px solid var(--line);background:#0d1830;color:var(--text-100);">
+            </label>
+            <label>Empresa
+              <input type="text" name="empresa" style="width:100%;margin-top:.35rem;padding:.75rem;border-radius:8px;border:1px solid var(--line);background:#0d1830;color:var(--text-100);">
+            </label>
+            <label>Telefono
+              <input type="tel" name="telefono" style="width:100%;margin-top:.35rem;padding:.75rem;border-radius:8px;border:1px solid var(--line);background:#0d1830;color:var(--text-100);">
+            </label>
+            <label>Email corporativo
+              <input type="email" name="email" required style="width:100%;margin-top:.35rem;padding:.75rem;border-radius:8px;border:1px solid var(--line);background:#0d1830;color:var(--text-100);">
+            </label>
+            <label>Mensaje
+              <textarea name="mensaje" rows="5" required style="width:100%;margin-top:.35rem;padding:.75rem;border-radius:8px;border:1px solid var(--line);background:#0d1830;color:var(--text-100);"></textarea>
+            </label>
+            <button class="btn btn-primary" type="submit">Enviar solicitud</button>
+          </form>
+        </article>
+        <figure class="banner reveal"><img src="sources/images/dsc01198.jpg" alt="Infraestructura de telecomunicaciones" loading="lazy" decoding="async"></figure>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container"><p class="legal"><span>&copy; <span id="year"></span> ADDEREIN</span><span>Consultoria en telecomunicaciones y control</span></p></div></footer>
+  <script src="sources/js/main.js"></script>
+</body>
+</html>
+

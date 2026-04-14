@@ -1,0 +1,7 @@
+# OS files
+Thumbs.db
+.DS_Store
+
+# Download or mirror leftovers
+*.z
+*.delayed
