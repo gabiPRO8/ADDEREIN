@@ -1986,7 +1986,6 @@ section.trust-strip {
   .fig-placeholder { height: 340px; }
 }
 @media (max-width: 480px) {
-  .exp-kpis { grid-template-columns: 1fr; }
   .vendors { grid-template-columns: repeat(2, 1fr); }
   .btn { padding: 12px 16px; }
   .nav .brand-logo { height: 42px; }
@@ -2081,6 +2080,156 @@ section.trust-strip {
 a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
   outline: 2px solid var(--green);
   outline-offset: 3px;
+}
+
+/* ============================================================
+   MOBILE EXPERIENCE — clearer, lighter, calmer (≤700px)
+   Desktop is untouched: everything below only reshapes phones.
+   Goals: shorter pages, quieter typography, full-width tap
+   targets, swipeable rows instead of tall stacks, less
+   secondary copy.
+   ============================================================ */
+@media (max-width: 700px) {
+  /* --- rhythm: shorter sections, less scroll fatigue --- */
+  :root {
+    --sec-y: 48px;
+    --sec-y-compact: 38px;
+  }
+  body { font-size: 16px; }
+
+  /* --- typography: calmer scale, comfortable measure --- */
+  .h1 { font-size: clamp(30px, 8.5vw, 38px); line-height: 1.12; letter-spacing: -0.025em; }
+  .h2 { font-size: clamp(23px, 6.5vw, 29px); line-height: 1.18; }
+  .eyebrow { font-size: 10px; letter-spacing: 0.18em; }
+  .section-head { margin-bottom: 26px; }
+  .section-head .h2 { margin-top: 10px; }
+  .section-head p { font-size: 15.5px; margin-top: 14px; line-height: 1.6; }
+  /* secondary (faint) paragraphs add depth on desktop but weight on
+     a phone — the same content lives on the detail pages */
+  .section-head p.p-soft { display: none; }
+
+  /* --- hero: compact, focused, readable --- */
+  .hero {
+    min-height: 0;
+    padding-top: calc(var(--nav-h) + 36px);
+    padding-bottom: 44px;
+  }
+  .hero h1 { margin-top: 14px; max-width: none; }
+  .hero p.lead { font-size: 15.5px; line-height: 1.6; margin-top: 14px; }
+  .hero-overlay {
+    background:
+      linear-gradient(180deg, rgba(6, 10, 9, 0.5) 0%, rgba(6, 10, 9, 0.66) 100%);
+  }
+  .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 26px;
+  }
+  .hero-ctas .btn {
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+    padding: 15px 20px;
+  }
+  .hero-tagline { margin-top: 22px; letter-spacing: 0.22em; }
+
+  /* --- trust strip: one quiet swipeable line --- */
+  section.trust-strip { padding: 20px 0 22px; }
+  .trust-roles { gap: 6px 14px; font-size: 10px; }
+  .trust-roles > span:not(.trust-label):not(:last-child)::after { margin-left: 14px; }
+  .trust-names {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 22px;
+    margin: 14px calc(-1 * var(--pad-x)) 0;
+    padding: 0 var(--pad-x) 4px;
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 88%, transparent 100%);
+            mask-image: linear-gradient(90deg, #000 0%, #000 88%, transparent 100%);
+  }
+  .trust-names::-webkit-scrollbar { display: none; }
+  .trust-names li { white-space: nowrap; flex: none; }
+
+  /* --- cards: tighter, calmer --- */
+  .value-grid { gap: 10px; }
+  .compact-card { padding: 15px 16px; gap: 12px; min-height: 0; }
+  .compact-card .c-title { font-size: 15px; }
+  .chip { padding: 9px 14px; font-size: 14px; }
+
+  /* --- KPIs: 2×2 block instead of a tall single column --- */
+  .exp-kpis, .exp-kpis.cols-4 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px 16px;
+    padding-top: 22px;
+  }
+  .kpi .num { font-size: 38px; }
+
+  /* --- projects: swipeable card row instead of a tall stack --- */
+  .project-grid, .project-grid.cols-3 {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: var(--pad-x);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-left: calc(-1 * var(--pad-x));
+    margin-right: calc(-1 * var(--pad-x));
+    padding: 4px var(--pad-x) 16px;
+  }
+  .project-grid::-webkit-scrollbar { display: none; }
+  .project-grid .project-card { flex: 0 0 82%; scroll-snap-align: start; }
+  .project-body { padding: 16px 18px 18px; }
+  .project-card h3, .project-grid.cols-3 .project-card h3 { font-size: 17px; }
+  .project-card p, .project-grid.cols-3 .project-card p { font-size: 13.5px; }
+
+  /* filter buttons scroll on one line (experience page) */
+  .filter-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-left: calc(-1 * var(--pad-x));
+    margin-right: calc(-1 * var(--pad-x));
+    padding: 0 var(--pad-x) 6px;
+  }
+  .filter-row::-webkit-scrollbar { display: none; }
+  .filter-row button { flex: none; }
+
+  .project-row { gap: 18px; padding: 16px 0; }
+
+  /* --- big name lockup: fits the narrow screen --- */
+  .name-lockup { margin-top: 32px; }
+  .name-big { font-size: clamp(42px, 13vw, 58px); }
+  .name-exp { font-size: 15px; }
+
+  /* --- cyber band / claims --- */
+  .cyber-claim { font-size: clamp(27px, 8vw, 36px); }
+  .cyber-p { font-size: 15px; }
+
+  /* --- illustrations: shorter frames, less dead space --- */
+  .illu { padding: 14px; margin-top: 28px; }
+  .illu iframe, .illu .illu-canvas { height: 300px; }
+  .illu-tall iframe, .illu-tall .illu-canvas { height: 420px; }
+  .fig-placeholder { height: 260px; }
+  .breakdown { gap: 28px; margin-top: 24px; }
+  .layers { grid-template-columns: 1fr; gap: 20px; }
+
+  /* --- CTA band: stacked, thumb-friendly --- */
+  .cta-band { flex-direction: column; align-items: stretch; gap: 20px; }
+  .cta-band .btn { justify-content: center; white-space: normal; }
+
+  /* --- contact: lighter frame --- */
+  .contact-grid { min-height: 0; }
+  .contact-form-wrap, .contact-info { padding: 40px var(--pad-x); }
+
+  /* --- footer: tighter --- */
+  .footer { padding: 44px 0 20px; }
+  .footer::before { background-size: 700px auto; }
+  .footer-grid { gap: 28px; }
+  .footer .brand-logo { height: 44px; }
 }
 
 /* respect reduced motion */
