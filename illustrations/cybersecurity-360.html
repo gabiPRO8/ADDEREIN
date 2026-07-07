@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Adderein · Cybersecurity 360°</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400..800&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+<style>
+  :root{
+    --surface:#FFFFFF;--border:#E5E7E2;
+    --text:#0E1410;--text-muted:#5B6360;--text-faint:#9CA39E;
+    --green:#1FA34F;--green-bright:#29C25F;--green-dark:#11703A;--green-deep:#0B4A26;
+    --green-soft:#E6F4EA;--green-line:rgba(31,163,79,.20);
+    --threat:#E0863A;
+    --f-display:"Bricolage Grotesque","Inter Tight",system-ui,sans-serif;
+    --f-body:"Inter Tight",system-ui,sans-serif;
+    --ease:cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;background:transparent;}
+  body{
+    font-family:var(--f-body);color:var(--text);
+    display:flex;align-items:center;justify-content:center;overflow:hidden;
+  }
+  svg{width:100%;height:100%;}
+
+  /* breathing protective halo */
+  #halo{transform-box:fill-box;transform-origin:center;animation:pulse 3.8s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:.30;transform:scale(1)}50%{opacity:.62;transform:scale(1.06)}}
+
+  /* slow rotating dashed perimeter — the 360° boundary */
+  #ring{transform-box:fill-box;transform-origin:center;animation:spin 26s linear infinite;}
+  @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+  /* rotating radar sweep, continuously scanning all directions */
+  #sweep{transform-box:view-box;transform-origin:640px 360px;animation:scan 6s linear infinite;}
+  @keyframes scan{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+  /* central shield gently lifts */
+  #shield{transform-box:fill-box;transform-origin:center;animation:lift 7s ease-in-out infinite alternate;}
+  @keyframes lift{from{transform:translateY(-5px)}to{transform:translateY(5px)}}
+
+  /* perimeter protection nodes appear in sequence */
+  .node{transform-box:fill-box;transform-origin:center;opacity:0;transform:scale(.5);
+        transition:opacity .5s ease, transform .6s cubic-bezier(.34,1.35,.5,1);}
+  .node.on{opacity:1;transform:scale(1);}
+  .node .ndisc{fill:var(--surface);stroke:var(--green-line);stroke-width:1.5;filter:url(#soft);
+               transition:fill .45s var(--ease),stroke .45s var(--ease);}
+  .node.lit .ndisc{fill:var(--green-soft);stroke:var(--green);}
+
+  /* threats fly inward and get blocked at the ring */
+  .threat{opacity:0;}
+  .threat.fire{animation:fly 2.6s ease-in forwards;}
+  @keyframes fly{
+    0%{opacity:0;transform:translate(var(--fx),var(--fy)) scale(.6);}
+    12%{opacity:1;}
+    62%{opacity:1;transform:translate(0,0) scale(1);}
+    72%{opacity:1;transform:translate(0,0) scale(1.25);}
+    100%{opacity:0;transform:translate(0,0) scale(.2);}
+  }
+  /* a small impact flash on the shield wall */
+  .spark{opacity:0;}
+  .spark.fire{animation:flash .5s ease-out forwards;}
+  @keyframes flash{0%{opacity:0;transform:scale(.4)}40%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(1.6)}}
+
+  .core-t{font-family:var(--f-display);font-weight:700;font-size:18px;letter-spacing:.06em;fill:#fff;}
+  .core-s{font-family:var(--f-mono,"JetBrains Mono");font-weight:500;font-size:11px;letter-spacing:.18em;
+          fill:rgba(255,255,255,.78);text-transform:uppercase;}
+  .n-lab{font-family:var(--f-display);font-weight:600;font-size:14px;letter-spacing:-.01em;fill:var(--text);
+         transition:fill .45s ease;}
+  .node.lit .n-lab{fill:var(--green-dark);}
+  .badge{font-family:"JetBrains Mono",monospace;font-weight:500;font-size:11px;letter-spacing:.16em;
+         fill:var(--text-faint);text-transform:uppercase;}
+
+  @media (prefers-reduced-motion: reduce){
+    #halo,#ring,#sweep,#shield{animation:none;}
+    .node{transition:none;}
+    .threat,.spark{display:none;}
+  }
+  /* printed fully drawn (complete state) */
+  @media print{
+    #halo,#ring,#sweep,#shield,#coreHalo{animation:none !important;}
+    .node{transition:none !important;}
+    .threat,.spark{display:none !important;}
+  }
+</style>
+</head>
+<body>
+  <svg id="viz" viewBox="0 0 1280 720" role="img" aria-label="A business core protected 360 degrees: a central shield surrounded by a rotating security perimeter and a scanning sweep, with protection nodes for data, network, OT, identity, interfaces and monitoring, while incoming threats are blocked at the boundary.">
+    <defs>
+      <radialGradient id="nuc" cx="36%" cy="28%" r="80%">
+        <stop offset="0%" stop-color="#3FD877"/>
+        <stop offset="52%" stop-color="#1FA34F"/>
+        <stop offset="100%" stop-color="#0B4A26"/>
+      </radialGradient>
+      <radialGradient id="halg" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#29C25F" stop-opacity=".45"/>
+        <stop offset="68%" stop-color="#29C25F" stop-opacity=".10"/>
+        <stop offset="100%" stop-color="#29C25F" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="sweepg" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#29C25F" stop-opacity="0"/>
+        <stop offset="100%" stop-color="#29C25F" stop-opacity=".34"/>
+      </linearGradient>
+      <filter id="soft" x="-60%" y="-60%" width="220%" height="220%">
+        <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#0E1410" flood-opacity="0.13"/>
+      </filter>
+    </defs>
+
+    <!-- protective halo -->
+    <circle id="halo" cx="640" cy="360" r="250" fill="url(#halg)"/>
+
+    <!-- rotating radar sweep -->
+    <g id="sweep">
+      <path d="M640,360 L640,118 A242,242 0 0 1 850,238 Z" fill="url(#sweepg)"/>
+      <line x1="640" y1="360" x2="640" y2="116" stroke="var(--green-bright)" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+    </g>
+
+    <!-- 360° dashed security perimeter -->
+    <g id="ring">
+      <circle cx="640" cy="360" r="242" fill="none" stroke="var(--green-line)" stroke-width="2" stroke-dasharray="3 12"/>
+      <circle cx="640" cy="360" r="206" fill="none" stroke="var(--green-line)" stroke-width="1.5" stroke-dasharray="2 10" opacity=".7"/>
+    </g>
+
+    <g id="threats"></g>
+    <g id="sparks"></g>
+    <g id="nodes"></g>
+
+    <!-- central shield = the protected business -->
+    <g id="shield">
+      <path d="M640,250 L726,282 V372 C726,432 690,470 640,492 C590,470 554,432 554,372 V282 Z"
+            fill="url(#nuc)" stroke="rgba(255,255,255,.30)" stroke-width="1.6"/>
+      <ellipse cx="618" cy="300" rx="30" ry="18" fill="rgba(255,255,255,.16)"/>
+      <!-- lock glyph -->
+      <rect x="612" y="356" width="56" height="44" rx="8" fill="rgba(255,255,255,.95)"/>
+      <path d="M622,356 v-10 a18,18 0 0 1 36,0 v10" fill="none" stroke="rgba(255,255,255,.95)" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="640" cy="374" r="6" fill="var(--green-dark)"/>
+      <rect x="637" y="378" width="6" height="12" rx="3" fill="var(--green-dark)"/>
+      <text id="coreT" class="core-t" x="640" y="430" text-anchor="middle">SECURED</text>
+      <text id="coreS" class="core-s" x="640" y="452" text-anchor="middle">360°</text>
+    </g>
+  </svg>
+
+<script>
+(function(){
+  var NS="http://www.w3.org/2000/svg";
+  var cx=640, cy=360, NR=242, NDR=27;
+
+  function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
+  function pol(a,r){var t=a*Math.PI/180;return [cx+r*Math.cos(t), cy+r*Math.sin(t)];}
+  function buildIcon(parent,spec,x,y,color,scale){
+    scale=scale||1;
+    var g=el("g",{transform:"translate("+x+","+y+") scale("+scale+") translate(-12,-12)"});
+    spec.split("|").forEach(function(p){
+      if(p.indexOf("C:")===0){var c=p.slice(2).split(",");g.appendChild(el("circle",{cx:c[0],cy:c[1],r:c[2],fill:"none",stroke:color,"stroke-width":1.7}));}
+      else{g.appendChild(el("path",{d:p,fill:"none",stroke:color,"stroke-width":1.7,"stroke-linecap":"round","stroke-linejoin":"round"}));}
+    });
+    parent.appendChild(g);
+  }
+
+  // six protected domains around the perimeter
+  var nodes=[
+    {ang:-90, side:"top",    icon:"C:12,7,3.4|M5.4,7 v10 c0,1.7 2.95,3 6.6,3 s6.6,-1.3 6.6,-3 V7|M5.4,12 c0,1.7 2.95,3 6.6,3 s6.6,-1.3 6.6,-3",
+     lab:{en:"Data",        es:"Datos"}},
+    {ang:-30, side:"right",  icon:"M3 7h18 M3 7v6 a2,2 0 0 0 2,2 h14 a2,2 0 0 0 2,-2 V7 M8 19h8 M12 15v4|C:18,4.5,1",
+     lab:{en:"Network",     es:"Red"}},
+    {ang: 30, side:"right",  icon:"M4 9 h6 v11 H4z M14 4 h6 v16 h-6z|M6 12h2 M6 15h2 M16 8h2 M16 11h2",
+     lab:{en:"OT systems",  es:"Sistemas OT"}},
+    {ang: 90, side:"bottom", icon:"C:12,8,4|M4.5 19.5 c0,-3.6 3.2,-5.6 7.5,-5.6 s7.5,2 7.5,5.6",
+     lab:{en:"Identity",    es:"Identidad"}},
+    {ang:150, side:"left",   icon:"M8 6 L3.5 12 L8 18 M16 6 L20.5 12 L16 18 M13.5 4.5 L10.5 19.5",
+     lab:{en:"Interfaces",  es:"Interfaces"}},
+    {ang:210, side:"left",   icon:"M3.5 12 h3 l2.5,6 l4,-13 l2.5,7 h5",
+     lab:{en:"Monitoring",  es:"Monitorización"}}
+  ];
+  var CORE={en:"SECURED", es:"PROTEGIDO"};
+
+  // ---- perimeter nodes ----
+  var gNodes=document.getElementById("nodes");
+  nodes.forEach(function(s){
+    var c=pol(s.ang,NR); s.x=c[0]; s.y=c[1];
+    var g=el("g",{}); g.setAttribute("class","node");
+    g.appendChild(el("circle",{cx:s.x,cy:s.y,r:NDR})).setAttribute("class","ndisc");
+    buildIcon(g,s.icon,s.x,s.y,"var(--green-dark)",1.05);
+
+    // label placed outside the perimeter
+    var anchor,lx,ly;
+    if(s.side==="top"){    anchor="middle"; lx=s.x; ly=s.y-NDR-14; }
+    else if(s.side==="bottom"){ anchor="middle"; lx=s.x; ly=s.y+NDR+26; }
+    else if(s.side==="right"){  anchor="start";  lx=s.x+NDR+14; ly=s.y+5; }
+    else {                      anchor="end";    lx=s.x-NDR-14; ly=s.y+5; }
+    s.labEl=el("text",{x:lx,y:ly,"text-anchor":anchor}); s.labEl.setAttribute("class","n-lab");
+    g.appendChild(s.labEl);
+
+    gNodes.appendChild(g); s.nodeEl=g;
+  });
+
+  // ---- corner badge ----
+  var badge=el("text",{x:64,y:680,"text-anchor":"start"}); badge.setAttribute("class","badge");
+  document.getElementById("viz").appendChild(badge);
+  var BADGE={en:"SECURITY BY DESIGN", es:"SEGURIDAD POR DISEÑO"};
+
+  // ---- language ----
+  var coreT=document.getElementById("coreT");
+  function setLang(lang){
+    if(lang!=="en"&&lang!=="es") lang="en";
+    document.documentElement.setAttribute("lang",lang);
+    coreT.textContent=CORE[lang];
+    badge.textContent=BADGE[lang];
+    nodes.forEach(function(s){ s.labEl.textContent=s.lab[lang]; });
+  }
+  var LANG_KEY="adderein-lang", lang="en";
+  try{var st=localStorage.getItem(LANG_KEY); if(st==="en"||st==="es") lang=st;}catch(e){}
+  setLang(lang);
+  window.addEventListener("storage",function(e){if(e.key===LANG_KEY)setLang(e.newValue);});
+
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ---- threats that get blocked at the boundary ----
+  var gThreats=document.getElementById("threats"), gSparks=document.getElementById("sparks");
+  function spawnThreat(){
+    if(reduce) return;
+    var ang=Math.random()*360, far=pol(ang, 470), hit=pol(ang, NR);
+    var t=el("g",{}); t.setAttribute("class","threat");
+    t.style.setProperty("--fx",(far[0]-hit[0]).toFixed(1)+"px");
+    t.style.setProperty("--fy",(far[1]-hit[1]).toFixed(1)+"px");
+    // a small warning triangle
+    t.appendChild(el("path",{d:"M0,-9 L8,6 L-8,6 Z",fill:"var(--threat)",transform:"translate("+hit[0]+","+hit[1]+")",opacity:".92"}));
+    t.appendChild(el("rect",{x:hit[0]-1.4,y:hit[1]-3,width:2.8,height:5,rx:1.4,fill:"#fff"}));
+    t.appendChild(el("circle",{cx:hit[0],cy:hit[1]+4,r:1.4,fill:"#fff"}));
+    gThreats.appendChild(t);
+
+    var sp=el("g",{}); sp.setAttribute("class","spark");
+    sp.appendChild(el("circle",{cx:hit[0],cy:hit[1],r:14,fill:"none",stroke:"var(--green-bright)","stroke-width":3}));
+    gSparks.appendChild(sp);
+
+    // trigger
+    requestAnimationFrame(function(){ t.classList.add("fire"); });
+    setTimeout(function(){ sp.classList.add("fire"); }, 1500);
+    setTimeout(function(){ t.remove(); sp.remove(); }, 2800);
+  }
+
+  // ---- the loop: nodes light in sequence, threats fired periodically ----
+  function show(i){ nodes[i].nodeEl.classList.add("on"); }
+  function lit(i){ nodes[i].nodeEl.classList.add("lit"); }
+  function unlit(i){ nodes[i].nodeEl.classList.remove("lit"); }
+
+  if(reduce){
+    nodes.forEach(function(_,i){ show(i); lit(i); });
+  } else {
+    // reveal all nodes once
+    nodes.forEach(function(_,i){ setTimeout(function(){ show(i); }, 300+i*240); });
+
+    // a light "scan pass" that lights each node as the sweep passes (~6s rotation)
+    var SCAN=6000, per=SCAN/nodes.length;
+    // sweep starts pointing up (-90°); order nodes by angle so the lit pulse follows it
+    var order=nodes.map(function(s,i){var a=((s.ang+90)%360+360)%360;return {i:i,a:a};})
+                   .sort(function(p,q){return p.a-q.a;});
+    function scanPass(){
+      order.forEach(function(o){
+        var d=(o.a/360)*SCAN;
+        setTimeout(function(){ lit(o.i); setTimeout(function(){ unlit(o.i); }, 900); }, d);
+      });
+    }
+    setTimeout(function(){ scanPass(); setInterval(scanPass, SCAN); }, 1900);
+
+    // threats
+    setTimeout(spawnThreat, 2600);
+    setInterval(spawnThreat, 2900);
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Adderein · Security by design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400..800&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+<style>
+  :root{
+    --surface:#FFFFFF;--border:#E5E7E2;
+    --text:#0E1410;--text-muted:#5B6360;--text-faint:#9CA39E;
+    --green:#1FA34F;--green-bright:#29C25F;--green-dark:#11703A;--green-deep:#0B4A26;
+    --green-soft:#E6F4EA;--green-line:rgba(31,163,79,.20);
+    --f-display:"Bricolage Grotesque","Inter Tight",system-ui,sans-serif;
+    --f-body:"Inter Tight",system-ui,sans-serif;
+    --ease:cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;background:transparent;}
+  body{font-family:var(--f-body);color:var(--text);
+       display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  svg{width:100%;height:100%;}
+
+  /* the design line draws left -> right */
+  #track{stroke:var(--green);stroke-width:4;fill:none;stroke-linecap:round;
+         transition:stroke-dashoffset 2.4s var(--ease);}
+
+  .stn{opacity:0;transform:translateY(10px);transition:opacity .5s ease, transform .55s var(--ease);}
+  .stn.on{opacity:1;transform:translateY(0);}
+  .stn-disc{fill:var(--surface);stroke:var(--green-line);stroke-width:2;filter:url(#soft);
+            transition:fill .5s var(--ease), stroke .5s var(--ease);}
+  .stn.on .stn-disc{fill:url(#nuc);stroke:transparent;}
+  .stn-num{font-family:var(--f-display);font-weight:700;font-size:24px;fill:var(--green-dark);transition:fill .5s ease;}
+  .stn.on .stn-num{fill:#fff;}
+
+  .s-title{font-family:var(--f-display);font-weight:700;font-size:19px;letter-spacing:-.01em;fill:var(--text);}
+  .s-desc{font-family:var(--f-body);font-size:14px;fill:var(--text-muted);}
+  .flag{font-family:"JetBrains Mono",monospace;font-weight:500;font-size:12px;letter-spacing:.16em;
+        text-transform:uppercase;fill:var(--green-dark);}
+
+  @media (prefers-reduced-motion: reduce){
+    #track{transition:none;}
+    .stn{transition:none;}
+  }
+</style>
+</head>
+<body>
+  <svg id="viz" viewBox="0 0 1280 440" role="img" aria-label="Security engineered as a five-phase design process: 01 Blueprint, 02 Security zones, 03 Data flows, 04 Controls, 05 Continuous monitoring — beginning at the design stage.">
+    <defs>
+      <radialGradient id="nuc" cx="36%" cy="28%" r="80%">
+        <stop offset="0%" stop-color="#3FD877"/>
+        <stop offset="52%" stop-color="#1FA34F"/>
+        <stop offset="100%" stop-color="#0B4A26"/>
+      </radialGradient>
+      <filter id="soft" x="-60%" y="-60%" width="220%" height="220%">
+        <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#0E1410" flood-opacity="0.12"/>
+      </filter>
+    </defs>
+
+    <!-- "starts at design" flag -->
+    <text id="flag" class="flag" x="120" y="78" text-anchor="start">Starts at the design stage</text>
+    <path d="M120 92 v40" stroke="var(--green-line)" stroke-width="1.5" stroke-dasharray="2 7"/>
+
+    <path id="track" d="M120 220 H1160"/>
+    <g id="stations"></g>
+  </svg>
+
+<script>
+(function(){
+  var NS="http://www.w3.org/2000/svg";
+  function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
+  function buildIcon(parent,spec,x,y,color,scale){
+    scale=scale||1;
+    var g=el("g",{transform:"translate("+x+","+y+") scale("+scale+") translate(-12,-12)"});
+    spec.split("|").forEach(function(p){
+      if(p.indexOf("C:")===0){var c=p.slice(2).split(",");g.appendChild(el("circle",{cx:c[0],cy:c[1],r:c[2],fill:"none",stroke:color,"stroke-width":1.7}));}
+      else{g.appendChild(el("path",{d:p,fill:"none",stroke:color,"stroke-width":1.7,"stroke-linecap":"round","stroke-linejoin":"round"}));}
+    });
+    parent.appendChild(g);
+  }
+
+  var Y=220, X0=120, X1=1160, R=34;
+  var steps=[
+    {title:{en:"Blueprint",          es:"Plano"},
+     desc:{en:["Architecture, boundaries","& security domains"],          es:["Arquitectura, fronteras","y dominios de seguridad"]}},
+    {title:{en:"Security zones",     es:"Zonas de seguridad"},
+     desc:{en:["Trusted & untrusted,","segmented (DMZ, IT/OT)"],          es:["Confianza y no confianza,","segmentadas (DMZ, IT/OT)"]}},
+    {title:{en:"Data flows",         es:"Flujos de datos"},
+     desc:{en:["Map every flow, find","the vulnerable points"],           es:["Trazar cada flujo, hallar","los puntos vulnerables"]}},
+    {title:{en:"Controls",           es:"Controles"},
+     desc:{en:["The right control for","each zone and flow"],             es:["El control adecuado para","cada zona y flujo"]}},
+    {title:{en:"Monitoring",         es:"Monitorización"},
+     desc:{en:["Continuous detection,","logging & response"],            es:["Detección, registro","y respuesta continuos"]}}
+  ];
+  var icons=[
+    "M5 4h11l3 3v13H5z|M16 4v3h3|M8 11h8M8 14h8M8 17h5",                                   // blueprint
+    "M4 5h7v6H4z|M13 13h7v6h-7z|M11 8h3a2 2 0 0 1 2 2v3",                                   // zones
+    "C:6,7,2.4|C:18,7,2.4|C:12,18,2.4|M8.2 7.6 L15.8 7.6 M7.4 9 L11 15.6 M16.6 9 L13 15.6", // data flows
+    "M12 3l7 2.5v6c0 4.4-3 7.3-7 8.5-4-1.2-7-4.1-7-8.5v-6z|M9 12l2 2 3.8-3.8",              // controls (shield+check)
+    "M3 13h3l2.5 6 4-13 2.5 7h5"                                                            // monitoring (pulse)
+  ];
+  var FLAG={en:"Starts at the design stage", es:"Empieza en la fase de diseño"};
+
+  var gS=document.getElementById("stations");
+  var n=steps.length, gap=(X1-X0)/(n-1);
+  steps.forEach(function(s,i){
+    var x=X0+i*gap; s.x=x;
+    var g=el("g",{}); g.setAttribute("class","stn");
+    g.appendChild(el("circle",{cx:x,cy:Y,r:R})).setAttribute("class","stn-disc");
+    // icon sits just above the number, both inside the disc
+    buildIcon(g,icons[i],x,Y-9,"var(--green-dark)",0.92);
+    s.iconG=g.lastChild;
+    var num=el("text",{x:x,y:Y+21,"text-anchor":"middle"}); num.setAttribute("class","stn-num"); num.textContent=(i+1<10?"0":"")+(i+1);
+    g.appendChild(num);
+
+    // labels below
+    s.titleEl=el("text",{x:x,y:Y+R+34,"text-anchor":"middle"}); s.titleEl.setAttribute("class","s-title"); g.appendChild(s.titleEl);
+    s.d1=el("text",{x:x,y:Y+R+58,"text-anchor":"middle"}); s.d1.setAttribute("class","s-desc"); g.appendChild(s.d1);
+    s.d2=el("text",{x:x,y:Y+R+76,"text-anchor":"middle"}); s.d2.setAttribute("class","s-desc"); g.appendChild(s.d2);
+
+    gS.appendChild(g); s.el=g;
+  });
+
+  // ---- language ----
+  var flag=document.getElementById("flag");
+  function setLang(lang){
+    if(lang!=="en"&&lang!=="es") lang="en";
+    document.documentElement.setAttribute("lang",lang);
+    flag.textContent=FLAG[lang];
+    steps.forEach(function(s){
+      s.titleEl.textContent=s.title[lang];
+      s.d1.textContent=s.desc[lang][0]; s.d2.textContent=s.desc[lang][1];
+    });
+  }
+  var LANG_KEY="adderein-lang", lang="en";
+  try{var st=localStorage.getItem(LANG_KEY); if(st==="en"||st==="es") lang=st;}catch(e){}
+  setLang(lang);
+  window.addEventListener("storage",function(e){if(e.key===LANG_KEY)setLang(e.newValue);});
+
+  // ---- reveal: track draws, stations pop in sequence ----
+  var track=document.getElementById("track");
+  var L=track.getTotalLength();
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function show(i){steps[i].el.classList.add("on");}
+  function hideAll(){steps.forEach(function(s){s.el.classList.remove("on");});}
+
+  if(reduce){
+    track.style.strokeDashoffset=0;
+    steps.forEach(function(_,i){show(i);});
+  } else {
+    var STEP=600, HOLD=3600, timers=[];
+    function run(){
+      timers.forEach(clearTimeout); timers=[];
+      hideAll();
+      track.style.transition="none"; track.style.strokeDasharray=L; track.style.strokeDashoffset=L; track.getBBox();
+      track.style.transition="";
+      timers.push(setTimeout(function(){ track.style.strokeDashoffset=0; }, 200));
+      steps.forEach(function(_,i){ timers.push(setTimeout(function(){show(i);}, 500+i*STEP)); });
+    }
+    var PERIOD=500+n*STEP+HOLD;
+    run(); setInterval(run, PERIOD);
+  }
+})();
+</script>
+</body>
+</html>

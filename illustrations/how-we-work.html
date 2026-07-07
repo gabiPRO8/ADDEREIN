@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Adderein · How we work</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400..800&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+<style>
+  :root{
+    --surface:#FFFFFF;--border:#E5E7E2;
+    --text:#0E1410;--text-muted:#5B6360;--text-faint:#9CA39E;
+    --green:#1FA34F;--green-bright:#29C25F;--green-dark:#11703A;--green-deep:#0B4A26;
+    --green-soft:#E6F4EA;--green-line:rgba(31,163,79,.20);
+    --f-display:"Bricolage Grotesque","Inter Tight",system-ui,sans-serif;
+    --f-body:"Inter Tight",system-ui,sans-serif;
+    --ease:cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;background:transparent;}
+  body{
+    font-family:var(--f-body);color:var(--text);
+    display:flex;align-items:center;justify-content:center;overflow:hidden;
+  }
+  svg{width:100%;height:100%;}
+
+  /* central cybersecurity core — present across the whole cycle */
+  #coreHalo{transform-box:fill-box;transform-origin:center;animation:cpulse 3.8s ease-in-out infinite;}
+  @keyframes cpulse{0%,100%{opacity:.30;transform:scale(1)}50%{opacity:.60;transform:scale(1.08)}}
+  .core-lab{font-family:"JetBrains Mono",monospace;font-weight:500;font-size:13px;letter-spacing:.2em;
+            text-transform:uppercase;fill:var(--green-dark);}
+  .core-sub{font-family:var(--f-body);font-weight:500;font-size:14.5px;fill:var(--text-muted);}
+
+  /* arcs that connect the steps, drawn progressively */
+  .arc .line{transition:stroke-dashoffset .85s var(--ease);}
+  .arc .head{opacity:0;transition:opacity .4s ease .55s;}
+  .arc.on .head{opacity:1;}
+
+  /* nodes */
+  .bubble{transform-box:fill-box;transform-origin:center;
+          transition:transform .55s cubic-bezier(.34,1.3,.5,1);}
+  .node.on .bubble{transform:scale(1.09);}
+  .disc{fill:var(--surface);stroke:var(--green-line);stroke-width:2;
+        transition:fill .5s var(--ease), stroke .5s var(--ease);
+        filter:url(#soft);}
+  .node.on .disc{fill:url(#nuc);stroke:transparent;}
+  .num{font-family:var(--f-display);font-weight:700;font-size:34px;letter-spacing:-.01em;
+       fill:var(--green-dark);transition:fill .5s ease;}
+  .node.on .num{fill:#fff;}
+
+  .n-title{font-family:var(--f-display);font-weight:700;font-size:23px;letter-spacing:-.015em;
+           fill:var(--text);transition:fill .5s ease;}
+  .node.on .n-title{fill:var(--green-dark);}
+  .n-desc{font-family:var(--f-body);font-size:15px;fill:var(--text-muted);}
+
+  @media (prefers-reduced-motion: reduce){
+    #coreHalo{animation:none;}
+    .arc .line{transition:none;}
+    .bubble{transition:none;}
+  }
+  /* printed fully drawn (complete state — every step lit, all arcs closed) */
+  @media print{
+    #coreHalo{animation:none !important;}
+    .bubble{transform:none !important;}
+    .disc{fill:url(#nuc) !important;stroke:transparent !important;}
+    .num{fill:#fff !important;}
+    .n-title{fill:var(--green-dark) !important;}
+    .arc .line{stroke-dashoffset:0 !important;transition:none !important;}
+    .arc .head{opacity:1 !important;}
+  }
+</style>
+</head>
+<body>
+  <svg id="viz" viewBox="0 0 1280 720" role="img" aria-label="A continuous cycle of how we work — 01 Understand, 02 Define architecture and functionalities, 03 Integrate, 04 Accompany — with cybersecurity at the centre, securing every step of the process.">
+    <defs>
+      <radialGradient id="nuc" cx="36%" cy="30%" r="78%">
+        <stop offset="0%" stop-color="#3FD877"/>
+        <stop offset="52%" stop-color="#1FA34F"/>
+        <stop offset="100%" stop-color="#0B4A26"/>
+      </radialGradient>
+      <radialGradient id="coreHalg" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#29C25F" stop-opacity=".45"/>
+        <stop offset="70%" stop-color="#29C25F" stop-opacity=".10"/>
+        <stop offset="100%" stop-color="#29C25F" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="soft" x="-60%" y="-60%" width="220%" height="220%">
+        <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#0E1410" flood-opacity="0.13"/>
+      </filter>
+    </defs>
+
+    <circle cx="640" cy="360" r="210" fill="none" stroke="var(--green-line)" stroke-width="1.5" stroke-dasharray="2 8" opacity=".55"/>
+
+    <g id="arcs"></g>
+
+    <g id="spokes"></g>
+
+    <!-- cybersecurity at the heart of the process — securing every step -->
+    <g id="core">
+      <circle id="coreHalo" cx="640" cy="360" r="96" fill="url(#coreHalg)"/>
+      <circle cx="640" cy="360" r="60" fill="url(#nuc)" stroke="rgba(255,255,255,.30)" stroke-width="1.5" filter="url(#soft)"/>
+      <ellipse cx="624" cy="336" rx="22" ry="13" fill="rgba(255,255,255,.16)"/>
+      <rect x="618" y="350" width="44" height="34" rx="7" fill="#fff"/>
+      <path d="M626,350 v-8 a14,14 0 0 1 28,0 v8" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="640" cy="364" r="5" fill="var(--green-dark)"/>
+      <rect x="637.5" y="367" width="5" height="9" rx="2.5" fill="var(--green-dark)"/>
+    </g>
+    <text id="coreLab" class="core-lab" x="640" y="450" text-anchor="middle">CYBERSECURITY</text>
+    <text id="coreSub" class="core-sub" x="640" y="472" text-anchor="middle">Across the whole process</text>
+
+    <g id="nodes"></g>
+  </svg>
+
+<script>
+(function(){
+  var NS="http://www.w3.org/2000/svg";
+  var cx=640, cy=360, RN=210, BR=56;
+
+  function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
+  function pol(a,r){var t=a*Math.PI/180;return [cx+r*Math.cos(t), cy+r*Math.sin(t)];}
+  function head(x,y,dir,size,color){
+    var t=dir*Math.PI/180, ux=Math.cos(t), uy=Math.sin(t), px=-uy, py=ux;
+    var p=[ [x+ux*size,        y+uy*size],
+            [x-ux*size*.45+px*size*.78, y-uy*size*.45+py*size*.78],
+            [x-ux*size*.45-px*size*.78, y-uy*size*.45-py*size*.78] ];
+    return el("path",{d:"M"+p[0][0]+","+p[0][1]+"L"+p[1][0]+","+p[1][1]+"L"+p[2][0]+","+p[2][1]+"Z",fill:color});
+  }
+
+  // four steps placed clockwise: top, right, bottom, left
+  var steps=[
+    {ang:-90, side:"top",
+     title:{en:"Understand",            es:"Entendemos"},
+     desc:{en:"Environment, requirements & regulation", es:"Entorno, requisitos y normativa"}},
+    {ang:  0, side:"right",
+     title:{en:"Define",                es:"Definimos"},
+     desc:{en:"Architecture & functionalities", es:"Arquitectura y funcionalidades"}},
+    {ang: 90, side:"bottom",
+     title:{en:"Integrate",             es:"Integramos"},
+     desc:{en:"Defined interfaces, working as one", es:"Interfaces definidas, funcionando como uno"}},
+    {ang:180, side:"left",
+     title:{en:"Accompany",             es:"Acompañamos"},
+     desc:{en:"Engineering support, through to delivery", es:"Soporte de ingeniería hasta la entrega"}}
+  ];
+
+  // ---- connector arcs (each leads INTO the next step, clockwise) ----
+  var gArcs=document.getElementById("arcs");
+  steps.forEach(function(s,i){
+    var a0=s.ang+18, a1=s.ang+90-22;
+    var p0=pol(a0,RN), p1=pol(a1,RN);
+    var g=el("g",{}); g.setAttribute("class","arc");
+    var line=el("path",{d:"M"+p0[0]+","+p0[1]+" A"+RN+","+RN+" 0 0 1 "+p1[0]+","+p1[1],
+      fill:"none",stroke:"var(--green)","stroke-width":3,"stroke-linecap":"round"});
+    line.setAttribute("class","line");
+    g.appendChild(line);
+    var hd=head(p1[0],p1[1],a1+90,11,"var(--green)"); hd.setAttribute("class","head"); g.appendChild(hd);
+    gArcs.appendChild(g);
+    s.arcEl=g; s.arcLine=line;
+  });
+  // measure & hide arcs
+  steps.forEach(function(s){
+    var L=s.arcLine.getTotalLength();
+    s.arcLine.style.strokeDasharray=L; s.arcLine.style.strokeDashoffset=L; s.arcLen=L;
+  });
+
+  // ---- spokes: the central security reaches into every step ----
+  (function(){
+    var g=document.getElementById("spokes");
+    steps.forEach(function(s){
+      var p0=pol(s.ang,82), p1=pol(s.ang,RN-BR-12);
+      g.appendChild(el("line",{x1:p0[0],y1:p0[1],x2:p1[0],y2:p1[1],
+        stroke:"var(--green-line)","stroke-width":2,"stroke-dasharray":"2 8","stroke-linecap":"round"}));
+    });
+  })();
+
+  // ---- nodes ----
+  var gNodes=document.getElementById("nodes");
+  steps.forEach(function(s){
+    var c=pol(s.ang,RN); s.cx=c[0]; s.cy=c[1];
+    var g=el("g",{}); g.setAttribute("class","node");
+    var b=el("g",{}); b.setAttribute("class","bubble");
+    b.appendChild(el("circle",{cx:s.cx,cy:s.cy,r:BR})).setAttribute("class","disc");
+    s.numEl=el("text",{x:s.cx,y:s.cy+12,"text-anchor":"middle"}); s.numEl.setAttribute("class","num");
+    b.appendChild(s.numEl);
+    g.appendChild(b);
+
+    // labels outside the ring
+    var tx,ty,dx,dy,anchor;
+    if(s.side==="top"){    anchor="middle"; tx=s.cx;        ty=s.cy-BR-44; dx=tx; dy=ty+24; }
+    else if(s.side==="bottom"){ anchor="middle"; tx=s.cx;   ty=s.cy+BR+40; dx=tx; dy=ty+24; }
+    else if(s.side==="right"){  anchor="start";  tx=s.cx+BR+26; ty=s.cy-6;  dx=tx; dy=ty+24; }
+    else {                      anchor="end";    tx=s.cx-BR-26; ty=s.cy-6;  dx=tx; dy=ty+24; }
+    s.titleEl=el("text",{x:tx,y:ty,"text-anchor":anchor}); s.titleEl.setAttribute("class","n-title");
+    s.descEl=el("text",{x:dx,y:dy,"text-anchor":anchor});  s.descEl.setAttribute("class","n-desc");
+    g.appendChild(s.titleEl); g.appendChild(s.descEl);
+
+    gNodes.appendChild(g); s.nodeEl=g;
+  });
+
+  // ---- language ----
+  function pad(i){return (i+1<10?"0":"")+(i+1);}
+  var coreLab=document.getElementById("coreLab"), coreSub=document.getElementById("coreSub");
+  var CORE_LAB={en:"CYBERSECURITY", es:"CIBERSEGURIDAD"};
+  var CORE_SUB={en:"Across the whole process", es:"En todo el proceso"};
+  function setLang(lang){
+    if(lang!=="en"&&lang!=="es") lang="en";
+    document.documentElement.setAttribute("lang",lang);
+    coreLab.textContent=CORE_LAB[lang];
+    coreSub.textContent=CORE_SUB[lang];
+    steps.forEach(function(s,i){
+      s.numEl.textContent=pad(i);
+      s.titleEl.textContent=s.title[lang];
+      s.descEl.textContent=s.desc[lang];
+    });
+  }
+  var LANG_KEY="adderein-lang", lang="en";
+  try{var st=localStorage.getItem(LANG_KEY); if(st==="en"||st==="es") lang=st;}catch(e){}
+  setLang(lang);
+  window.addEventListener("storage",function(e){if(e.key===LANG_KEY)setLang(e.newValue);});
+
+  // ---- the loop ----
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function showNode(i){steps[i].nodeEl.classList.add("on");}
+  function showArc(i){steps[i].arcEl.classList.add("on"); steps[i].arcLine.style.strokeDashoffset=0;}
+  function reset(){
+    steps.forEach(function(s){
+      s.nodeEl.classList.remove("on");
+      s.arcEl.classList.remove("on");
+      s.arcLine.style.transition="none";
+      s.arcLine.style.strokeDashoffset=s.arcLen;
+      s.arcLine.getBBox();
+      s.arcLine.style.transition="";
+    });
+  }
+
+  if(reduce){
+    steps.forEach(function(s,i){showNode(i); s.arcEl.classList.add("on"); s.arcLine.style.strokeDashoffset=0;});
+  } else {
+    // step 0 lights, then each following step draws its incoming arc + lights up,
+    // finally the closing arc redraws the loop back to step 0 — then it repeats.
+    var STEP=1500, START=450, CLOSE, PERIOD;
+    var timers=[];
+    function run(){
+      timers.forEach(clearTimeout); timers=[];
+      reset();
+      timers.push(setTimeout(function(){showNode(0);}, START));
+      for(var i=1;i<steps.length;i++){
+        (function(i){
+          timers.push(setTimeout(function(){showArc(i-1); showNode(i);}, START+i*STEP));
+        })(i);
+      }
+      // closing arc (step 3 -> step 0) completes the cycle
+      timers.push(setTimeout(function(){showArc(steps.length-1);}, START+steps.length*STEP));
+    }
+    PERIOD = 450 + steps.length*STEP + 2200; // hold the full cycle, then loop
+    run();
+    setInterval(run, PERIOD);
+  }
+})();
+</script>
+</body>
+</html>

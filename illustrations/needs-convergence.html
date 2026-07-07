@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Adderein · Where user and operation needs converge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400..800&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+<style>
+  :root{
+    --surface:#FFFFFF;--border:#E5E7E2;
+    --text:#0E1410;--text-muted:#5B6360;--text-faint:#9CA39E;
+    --green:#1FA34F;--green-bright:#29C25F;--green-dark:#11703A;--green-deep:#0B4A26;
+    --green-soft:#E6F4EA;--green-line:rgba(31,163,79,.22);
+    --f-display:"Bricolage Grotesque","Inter Tight",system-ui,sans-serif;
+    --f-body:"Inter Tight",system-ui,sans-serif;
+    --ease:cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;background:transparent;}
+  body{font-family:var(--f-body);color:var(--text);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  svg{width:100%;height:100%;}
+
+  .pill{transform-box:fill-box;transform-origin:center;opacity:0;transition:transform .6s var(--ease),opacity .5s ease;}
+  .pill.left{transform:translateX(-26px);}
+  .pill.right{transform:translateX(26px);}
+  .built .pill{transform:translateX(0);opacity:1;transition-delay:var(--td);}
+
+  .wire .ln{transition:stroke-dashoffset .8s var(--ease);}
+  .built .wire .ln{stroke-dashoffset:0;transition-delay:var(--td);}
+  .wire .hd{opacity:0;transition:opacity .35s ease;}
+  .built .wire .hd{opacity:.9;transition-delay:var(--tdh);}
+
+  #core{transform-box:fill-box;transform-origin:center;transform:scale(0);opacity:0;
+        transition:transform .7s cubic-bezier(.34,1.3,.5,1),opacity .5s ease;}
+  .built #core{transform:scale(1);opacity:1;transition-delay:var(--td);}
+  #coreHalo{transform-box:fill-box;transform-origin:center;animation:cpulse 3.8s ease-in-out infinite;}
+  @keyframes cpulse{0%,100%{opacity:.35;transform:scale(1)}50%{opacity:.65;transform:scale(1.1)}}
+
+  .plab{font-family:var(--f-body);font-weight:600;font-size:16px;letter-spacing:-.01em;fill:var(--text);}
+  .head{font-family:"JetBrains Mono",monospace;font-weight:500;font-size:13px;letter-spacing:.2em;text-transform:uppercase;fill:var(--green-dark);}
+  .head-s{font-family:var(--f-body);font-weight:500;font-size:13.5px;fill:var(--text-muted);}
+  .core-t{font-family:var(--f-display);font-weight:700;font-size:21px;letter-spacing:-.01em;fill:var(--green-dark);text-anchor:middle;}
+  .core-s{font-family:"JetBrains Mono",monospace;font-weight:500;font-size:11px;letter-spacing:.16em;text-transform:uppercase;fill:var(--text-muted);text-anchor:middle;}
+
+  @media (prefers-reduced-motion: reduce){
+    .pill,.wire .ln,.wire .hd,#core{transition:none;}
+    #coreHalo{animation:none;}
+  }
+  /* printed fully drawn (complete state — all wires converged) */
+  @media print{
+    #coreHalo{animation:none !important;}
+    .pill{opacity:1 !important;transform:translateX(0) !important;}
+    .wire .ln{stroke-dashoffset:0 !important;transition:none !important;}
+    .wire .hd{opacity:.9 !important;}
+    #core{opacity:1 !important;transform:scale(1) !important;}
+  }
+</style>
+</head>
+<body>
+  <svg id="viz" viewBox="0 0 1160 620" role="img" aria-label="On one side the user wants information, communication, security and comfort; on the other the operation and its management need communication, monitoring, security, surveillance and control. Adderein's engineering makes both sets of needs converge into one integrated system.">
+    <defs>
+      <radialGradient id="nuc" cx="36%" cy="30%" r="80%">
+        <stop offset="0%" stop-color="#3FD877"/><stop offset="52%" stop-color="#1FA34F"/><stop offset="100%" stop-color="#0B4A26"/>
+      </radialGradient>
+      <radialGradient id="halg" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#29C25F" stop-opacity=".45"/><stop offset="70%" stop-color="#29C25F" stop-opacity=".08"/><stop offset="100%" stop-color="#29C25F" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+        <feDropShadow dx="0" dy="4" stdDeviation="7" flood-color="#0E1410" flood-opacity="0.12"/>
+      </filter>
+    </defs>
+
+    <g id="heads"></g>
+    <g id="wires"></g>
+    <g id="pills"></g>
+
+    <g id="core">
+      <circle id="coreHalo" cx="580" cy="316" r="120" fill="url(#halg)"/>
+      <circle cx="580" cy="316" r="74" fill="url(#nuc)" stroke="rgba(255,255,255,.30)" stroke-width="1.6" filter="url(#soft)"/>
+      <ellipse cx="560" cy="292" rx="26" ry="15" fill="rgba(255,255,255,.16)"/>
+      <path d="M580 286 v60 M550 316 h60" stroke="#fff" stroke-width="9" stroke-linecap="round"/>
+      <text id="coreT" class="core-t" x="580" y="426">INTEGRATED</text>
+      <text id="coreS" class="core-s" x="580" y="446">AS ONE SYSTEM</text>
+    </g>
+  </svg>
+
+<script>
+(function(){
+  var NS="http://www.w3.org/2000/svg";
+  var CX=580, CY=316, CR=74;
+
+  function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
+
+  var PW=210, PH=46;
+  var left=[
+    {en:"Information",   es:"Información"},
+    {en:"Communication", es:"Comunicación"},
+    {en:"Security",      es:"Seguridad"},
+    {en:"Comfort",       es:"Confort"}
+  ];
+  var right=[
+    {en:"Communication", es:"Comunicación"},
+    {en:"Monitoring",    es:"Monitorización"},
+    {en:"Security",      es:"Seguridad"},
+    {en:"Surveillance",  es:"Videovigilancia"},
+    {en:"Control",       es:"Control"}
+  ];
+
+  function spread(n, top, bot){var a=[],i;if(n===1){return [(top+bot)/2];}for(i=0;i<n;i++){a.push(top+(bot-top)*i/(n-1));}return a;}
+  var LX=40, RX=910;                // pill left x for each side
+  var leftYs=spread(left.length, 150, 482);
+  var rightYs=spread(right.length, 120, 512);
+
+  var gP=document.getElementById("pills"), gW=document.getElementById("wires"), gH=document.getElementById("heads");
+
+  function pill(side, x, y, idx, total){
+    var g=el("g",{}); g.setAttribute("class","pill "+side);
+    var order = side==="left" ? idx : idx;
+    g.style.setProperty("--td",(1.0 + idx*0.18).toFixed(2)+"s");
+    g.appendChild(el("rect",{x:x,y:y-PH/2,width:PW,height:PH,rx:23,fill:"var(--surface)",stroke:"var(--green-line)","stroke-width":1.6,filter:"url(#soft)"}));
+    g.appendChild(el("circle",{cx:(side==="left"?x+24:x+PW-24),cy:y,r:6,fill:(side==="left"?"var(--green)":"var(--green-dark)")}));
+    var t=el("text",{x:(side==="left"?x+46:x+PW-46),y:y+5,"text-anchor":(side==="left"?"start":"end")});
+    t.setAttribute("class","plab"); g.appendChild(t);
+    gP.appendChild(g);
+    return {t:t, connX:(side==="left"?x+PW:x), connY:y};
+  }
+
+  function wire(px,py, idx, lastTd){
+    // curved connector from a pill toward the core edge
+    var dx=CX-px, dy=CY-py, d=Math.sqrt(dx*dx+dy*dy);
+    var ex=CX-dx/d*(CR+4), ey=CY-dy/d*(CR+4);     // stop at core edge
+    var mx=(px+ex)/2, my=py+(ey-py)*0.16;          // gentle bend
+    var g=el("g",{}); g.setAttribute("class","wire");
+    var path="M"+px+","+py+" Q"+mx+","+my+" "+ex+","+ey;
+    var ln=el("path",{d:path,fill:"none",stroke:"var(--green)","stroke-width":3,"stroke-linecap":"round",opacity:".82"});
+    ln.setAttribute("class","ln"); g.appendChild(ln);
+    // arrow head at core edge
+    var ang=Math.atan2(ey-my, ex-mx), s=7;
+    var hx=ex, hy=ey;
+    var p1=[hx,hy], p2=[hx-Math.cos(ang)*s+Math.cos(ang+Math.PI/2)*s*.7, hy-Math.sin(ang)*s+Math.sin(ang+Math.PI/2)*s*.7],
+        p3=[hx-Math.cos(ang)*s-Math.cos(ang+Math.PI/2)*s*.7, hy-Math.sin(ang)*s-Math.sin(ang+Math.PI/2)*s*.7];
+    var hd=el("path",{d:"M"+p1[0]+","+p1[1]+"L"+p2[0]+","+p2[1]+"L"+p3[0]+","+p3[1]+"Z",fill:"var(--green)"});
+    hd.setAttribute("class","hd"); g.appendChild(hd);
+    gW.appendChild(g);
+    var L=ln.getTotalLength(); ln.setAttribute("stroke-dasharray",L); ln.setAttribute("stroke-dashoffset",L);
+    var td=(2.2+idx*0.14);
+    g.style.setProperty("--td",td.toFixed(2)+"s");
+    g.style.setProperty("--tdh",(td+0.5).toFixed(2)+"s");
+  }
+
+  var leftRefs=[], rightRefs=[], wi=0;
+  left.forEach(function(n,i){ var r=pill("left",LX,leftYs[i],i,left.length); n.t=r.t; leftRefs.push(r); });
+  right.forEach(function(n,i){ var r=pill("right",RX,rightYs[i],i,right.length); n.t=r.t; rightRefs.push(r); });
+  leftRefs.forEach(function(r,i){ wire(r.connX,r.connY,wi++,0); });
+  rightRefs.forEach(function(r,i){ wire(r.connX,r.connY,wi++,0); });
+
+  // side headers
+  var heads={ en:{l1:"The user wants",l2:"information · comfort · safety", r1:"The operation needs",r2:"control · monitoring · safety"},
+              es:{l1:"El usuario quiere",l2:"información · confort · seguridad", r1:"La operación necesita",r2:"control · monitorización · seguridad"} };
+  var hL1=el("text",{x:LX+8,y:96,"text-anchor":"start"}); hL1.setAttribute("class","head"); gH.appendChild(hL1);
+  var hR1=el("text",{x:RX+PW-8,y:74,"text-anchor":"end"}); hR1.setAttribute("class","head"); gH.appendChild(hR1);
+
+  function setLang(lang){
+    if(lang!=="en"&&lang!=="es") lang="en";
+    document.documentElement.setAttribute("lang",lang);
+    left.forEach(function(n){ n.t.textContent=n[lang]; });
+    right.forEach(function(n){ n.t.textContent=n[lang]; });
+    hL1.textContent=heads[lang].l1; hR1.textContent=heads[lang].r1;
+    document.getElementById("coreT").textContent = lang==="es" ? "INTEGRADO" : "INTEGRATED";
+    document.getElementById("coreS").textContent = lang==="es" ? "EN UN SOLO SISTEMA" : "AS ONE SYSTEM";
+  }
+  var LANG_KEY="adderein-lang",lang="en";
+  try{var s=localStorage.getItem(LANG_KEY);if(s==="en"||s==="es")lang=s;}catch(e){}
+  setLang(lang);
+  window.addEventListener("storage",function(e){if(e.key===LANG_KEY)setLang(e.newValue);});
+
+  document.getElementById("core").style.setProperty("--td","0.4s");
+
+  var scene=document.getElementById("viz");
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduce){ scene.classList.add("built"); }
+  else{
+    function cycle(){
+      scene.classList.add("built");
+      setTimeout(function(){ scene.classList.remove("built"); setTimeout(cycle,1200); }, 11000);
+    }
+    setTimeout(cycle, 350);
+  }
+})();
+</script>
+</body>
+</html>

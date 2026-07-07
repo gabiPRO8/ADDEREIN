@@ -5,3 +5,9 @@ Thumbs.db
 # Download or mirror leftovers
 *.z
 *.delayed
+
+# Dependencies
+node_modules/
+
+# Claude Code local config
+.claude/

@@ -1,222 +1,452 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ADDEREIN | About Us</title>
-  <meta name="description" content="Engineering Communications, Control and Cybersecurity for Railway Systems.">
-  <meta name="theme-color" content="#0a0e1a">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="sources/css/main.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AddereIn</title>
+<meta name="description" content="Communications, control and cybersecurity engineering for railway, airport and public-infrastructure environments. We design, integrate and secure the systems that sustain your operation." />
+
+<link rel="icon" href="img/logo-full.png" type="image/png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Bricolage+Grotesque:opsz,wght@10..48,400..800&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="css/site.css?v=18" />
 </head>
 <body>
-  <a class="skip-link" href="#main-content">Skip to main content</a>
 
-  <header class="site-header navbar" id="top">
-    <div class="container header-wrap">
-      <div class="language-switcher" role="group" aria-label="Language switcher">
-        <button type="button" class="lang-btn is-active" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" class="lang-btn" data-lang="es" aria-pressed="false">ES</button>
+<!-- ============================== NAV ============================== -->
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html" aria-label="addere+In — home">
+      <div class="brand-mark">
+        <img class="brand-logo" src="img/logo-full.png" alt="Adderein" />
       </div>
-
-      <a class="brand" href="index.html" aria-label="ADDEREIN homepage">
-        <img class="nav-logo-img" src="sources/images/addereinlemaspanishtransparent_22289LOGO.png" alt="ADDEREIN corporate logo">
-      </a>
-
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-      <nav id="main-nav" class="main-nav" aria-label="Primary navigation">
-        <ul>
-          <li><a class="nav-link active" href="index.html" aria-current="page">About Us</a></li>
-          <li><a class="nav-link" href="expertise.html">Expertise</a></li>
-          <li><a class="nav-link" href="projects.html">Projects</a></li>
-          <li><a class="nav-link" href="services.html">Services</a></li>
-          <li><a class="nav-link" href="value.html">Value</a></li>
-          <li><a class="nav-link" href="contact.html">Contact</a></li>
-        </ul>
-      </nav>
-
-      <a class="btn btn-primary cta-btn header-cta" href="contact.html">Get in Touch</a>
-    </div>
-  </header>
-
-  <main id="main-content">
-    <section class="hero" aria-label="Engineering the Future of Railway Communications">
-      <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="sources/images/centredecontrol.jpg" aria-hidden="true">
-        <source src="sources/videos/1 tren.mp4" type="video/mp4">
-        <source src="sources/videos/1 tren.mp4" type="video/mp4">
-      </video>
-      <div class="hero-overlay" aria-hidden="true"></div>
-      <div class="hero-aura" aria-hidden="true"></div>
-
-      <div class="container hero-content">
-        <!-- EDIT: Hero text -->
-        <p class="eyebrow">Engineering Communications, Control &amp; Cybersecurity for Railway Systems</p>
-        <h1>Engineering the Future of Railway Communications</h1>
-        <h2>Independent IT/OT consultancy for LRT, Metro and Interurban Rail systems</h2>
-        <a class="btn btn-primary" href="expertise.html">Discover Our Expertise</a>
-      </div>
-    </section>
-
-    <section class="section who-we-are" id="about">
-      <div class="container split-grid">
-        <article>
-          <p class="eyebrow">Who We Are</p>
-          <div class="section-accent-bar"></div>
-          <h2>Independent Engineering Partner for Mission-Critical Transport Programs</h2>
-          <!-- EDIT: About paragraph -->
-          <p>
-            ADDEREIN is a specialized engineering and strategic consulting firm focused on railway infrastructures and
-            critical urban transport systems. We act as an independent technology partner providing system architecture
-            design, technical validation, investment optimization and high-level strategic decision support.
-          </p>
-
-          <div class="project-window" aria-label="Featured railway projects">
-            <div class="project-track">
-              <span class="project-chip">Metro Core Network Migration</span>
-              <span class="project-chip">LRT Operational Data Center Upgrade</span>
-              <span class="project-chip">Station-to-OCC Cyber Segmentation</span>
-              <span class="project-chip">Interurban Rail LTE/5G Coverage Design</span>
-              <span class="project-chip">Rolling Stock Interface Harmonization</span>
-              <span class="project-chip">Tender Technical Architecture Validation</span>
-
-              <span class="project-chip" aria-hidden="true">Metro Core Network Migration</span>
-              <span class="project-chip" aria-hidden="true">LRT Operational Data Center Upgrade</span>
-              <span class="project-chip" aria-hidden="true">Station-to-OCC Cyber Segmentation</span>
-              <span class="project-chip" aria-hidden="true">Interurban Rail LTE/5G Coverage Design</span>
-              <span class="project-chip" aria-hidden="true">Rolling Stock Interface Harmonization</span>
-              <span class="project-chip" aria-hidden="true">Tender Technical Architecture Validation</span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="site-menu">
+        <li>
+          <a href="index.html" data-i18n-en="About Us" data-i18n-es="Nosotros">About Us</a>
+          <div class="nav-panel" aria-hidden="true">
+            <div class="nav-panel-inner">
+              <span class="nav-panel-eye" data-i18n-en="WHO WE ARE" data-i18n-es="QUIÉNES SOMOS">WHO WE ARE</span>
+              <p data-i18n-en="Engineers specialised in the technological core of transport and public-use infrastructure." data-i18n-es="Ingenieros especializados en el núcleo tecnológico del transporte y las infraestructuras de uso público.">Engineers specialised in the technological core of transport and public-use infrastructure.</p>
+              <a href="index.html" class="nav-panel-link"><span data-i18n-en="Learn more" data-i18n-es="Saber más">Learn more</span> <span class="arrow">→</span></a>
             </div>
           </div>
-        </article>
-        <figure class="visual-card">
-          <img src="sources/images/87689647-engineer-and-blueprints.jpg" alt="Railway engineer reviewing blueprint and systems diagrams" loading="lazy" decoding="async">
-        </figure>
-      </div>
-    </section>
-
-    <section class="stats-band" aria-label="ADDEREIN key capabilities">
-      <div class="container">
-        <div class="stat">
-          <span class="stat-num">+20</span>
-          <span class="stat-label">Years of railway expertise</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num">LRT · Metro · Rail</span>
-          <span class="stat-label">Transport systems</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num">IT/OT</span>
-          <span class="stat-label">Unified security approach</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="section commitment" id="commitment">
-      <div class="container">
-        <p class="eyebrow">Our Commitment</p>
-        <div class="section-accent-bar"></div>
-        <h2>Technical Objectivity That Reduces Risk and Increases Operational Reliability</h2>
-
-        <div class="card-grid">
-          <article class="commitment-card card">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L4 5.5V11c0 5.05 3.44 9.78 8 11 4.56-1.22 8-5.95 8-11V5.5L12 2zm0 2.2l6 2.6V11c0 3.95-2.5 7.75-6 8.92C8.5 18.75 6 14.95 6 11V6.8l6-2.6zm-1 4.3v2.5H8.5V13H11v2.5h2V13h2.5v-2H13V8.5h-2z" fill="currentColor"/>
-              </svg>
+        </li>
+        <li>
+          <a href="technology.html" data-i18n-en="Technology" data-i18n-es="Tecnología">Technology</a>
+          <div class="nav-panel" aria-hidden="true">
+            <div class="nav-panel-inner">
+              <span class="nav-panel-eye" data-i18n-en="THE CORE" data-i18n-es="EL NÚCLEO">THE CORE</span>
+              <p data-i18n-en="Data centre, communications network and cybersecurity — the transversal core every service grows on." data-i18n-es="Centro de datos, red de comunicaciones y ciberseguridad — el núcleo transversal sobre el que crece cada servicio.">Data centre, communications network and cybersecurity — the transversal core every service grows on.</p>
+              <a href="technology.html" class="nav-panel-link"><span data-i18n-en="Explore" data-i18n-es="Explorar">Explore</span> <span class="arrow">→</span></a>
             </div>
-            <h3>Security by Design</h3>
-            <p>Cybersecurity integrated from the earliest design stages across architecture, operations and deployment.</p>
-          </article>
-
-          <article class="commitment-card card">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
-                <path d="M13.6 2l-1 2.4a8.46 8.46 0 00-1.2 0L10.4 2H8.1l-.8 2.7c-.35.11-.68.25-1 .4L3.7 3.8 2.1 5.4l1.3 2.6c-.15.32-.29.65-.4 1L.3 9.9v2.3l2.7.8c.11.35.25.68.4 1l-1.3 2.6 1.6 1.6 2.6-1.3c.32.15.65.29 1 .4l.8 2.7h2.3l1-2.4a8.46 8.46 0 001.2 0l1 2.4h2.3l.8-2.7c.35-.11.68-.25 1-.4l2.6 1.3 1.6-1.6-1.3-2.6c.15-.32.29-.65.4-1l2.7-.8V9.9l-2.7-.8a6.9 6.9 0 00-.4-1l1.3-2.6-1.6-1.6-2.6 1.3a6.9 6.9 0 00-1-.4L15.9 2h-2.3zM12 8a3 3 0 110 6 3 3 0 010-6z" fill="currentColor"/>
-              </svg>
+          </div>
+        </li>
+        <li>
+          <a href="cybersecurity.html" data-i18n-en="Cybersecurity" data-i18n-es="Ciberseguridad">Cybersecurity</a>
+          <div class="nav-panel" aria-hidden="true">
+            <div class="nav-panel-inner">
+              <span class="nav-panel-eye" data-i18n-en="360º SECURITY" data-i18n-es="SEGURIDAD 360">360º SECURITY</span>
+              <p data-i18n-en="We protect the systems that sustain the business — by design, in every project." data-i18n-es="Protegemos los sistemas que sostienen el negocio — por diseño, en cada proyecto.">We protect the systems that sustain the business — by design, in every project.</p>
+              <a href="cybersecurity.html" class="nav-panel-link"><span data-i18n-en="See more" data-i18n-es="Saber más">See more</span> <span class="arrow">→</span></a>
             </div>
-            <h3>Independent Partner</h3>
-            <p>No vendor alignment and no manufacturer conflict, only objective engineering criteria for each decision.</p>
-          </article>
-
-          <article class="commitment-card card">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 15.5l5-5 3 3 8-8 2 2-10 10-3-3-3.5 3.5L3 15.5zm1 4h17v2H4v-2z" fill="currentColor"/>
-              </svg>
+          </div>
+        </li>
+        <li>
+          <a href="services.html" data-i18n-en="Our services" data-i18n-es="Nuestros servicios">Our services</a>
+          <div class="nav-panel" aria-hidden="true">
+            <div class="nav-panel-inner">
+              <span class="nav-panel-eye" data-i18n-en="WHAT WE OFFER" data-i18n-es="QUÉ OFRECEMOS">WHAT WE OFFER</span>
+              <p data-i18n-en="The technological core, the systems we integrate and 360º cybersecurity — across the whole project cycle." data-i18n-es="El núcleo tecnológico, los sistemas que integramos y la ciberseguridad 360 — en todo el ciclo del proyecto.">The technological core, the systems we integrate and 360º cybersecurity — across the whole project cycle.</p>
+              <a href="services.html" class="nav-panel-link"><span data-i18n-en="Explore" data-i18n-es="Explorar">Explore</span> <span class="arrow">→</span></a>
             </div>
-            <h3>Railway Focused</h3>
-            <p>Exclusive expertise in critical railway systems from strategic definition to operational deployment.</p>
-          </article>
-        </div>
+          </div>
+        </li>
+        <li>
+          <a href="experience.html" data-i18n-en="Experience" data-i18n-es="Experiencia">Experience</a>
+          <div class="nav-panel" aria-hidden="true">
+            <div class="nav-panel-inner">
+              <span class="nav-panel-eye" data-i18n-en="OUR PROJECTS" data-i18n-es="NUESTROS PROYECTOS">OUR PROJECTS</span>
+              <p data-i18n-en="Sectors and projects that sustain the daily journeys of thousands of people." data-i18n-es="Sectores y proyectos que sostienen el día a día de miles de personas.">Sectors and projects that sustain the daily journeys of thousands of people.</p>
+              <a href="experience.html" class="nav-panel-link"><span data-i18n-en="See projects" data-i18n-es="Ver proyectos">See projects</span> <span class="arrow">→</span></a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="contact.html" data-i18n-en="Contact" data-i18n-es="Contacto">Contact</a>
+          <div class="nav-panel" aria-hidden="true">
+            <div class="nav-panel-inner">
+              <span class="nav-panel-eye" data-i18n-en="GET IN TOUCH" data-i18n-es="CONTÁCTANOS">GET IN TOUCH</span>
+              <p data-i18n-en="Tell us where your project stands. We answer with technical judgement, no strings attached." data-i18n-es="Cuéntanos en qué fase está tu proyecto. Respondemos con criterio técnico, sin compromiso.">Tell us where your project stands. We answer with technical judgement, no strings attached.</p>
+              <a href="contact.html" class="nav-panel-link"><span data-i18n-en="Write to us" data-i18n-es="Escríbenos">Write to us</span> <span class="arrow">→</span></a>
+            </div>
+          </div>
+        </li>
+        <li class="nav-menu-cta">
+          <a href="contact.html" class="btn btn-primary">
+            <span data-i18n-en="Let's talk" data-i18n-es="Hablemos">Let's talk</span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" class="is-active">EN</button>
+        <span>/</span>
+        <button type="button" data-lang="es">ES</button>
       </div>
-    </section>
-
-    <section class="section contact-cta" id="get-in-touch">
-      <div class="container form-panel">
-        <div class="form-intro">
-          <p class="eyebrow">Get in Touch</p>
-          <div class="section-accent-bar"></div>
-          <h2>Share Your Program Scope and We Will Engineer a Clear Path Forward</h2>
-          <!-- EDIT: Contact intro -->
-          <p>Our team supports authorities, operators and system integrators in complex railway technology programs.</p>
-        </div>
-
-        <form class="contact-form" action="#" method="post" novalidate>
-          <label for="full-name">Full Name</label>
-          <input id="full-name" name="full-name" type="text" autocomplete="name" required>
-
-          <label for="company">Company</label>
-          <input id="company" name="company" type="text" autocomplete="organization" required>
-
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" autocomplete="email" required>
-
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="5" required></textarea>
-
-          <button class="btn btn-primary" type="submit">Send Message</button>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-layout">
-      <div class="footer-brand">
-        <img src="sources/images/addereinlemaspanishtransparent_22289LOGO.png" alt="ADDEREIN corporate logo" loading="lazy" decoding="async">
-        <p>Engineering Communications, Control &amp; Cybersecurity for Railway Systems</p>
-      </div>
-
-      <nav class="footer-nav" aria-label="Footer navigation">
-        <a href="index.html" aria-current="page">About Us</a>
-        <a href="expertise.html">Expertise</a>
-        <a href="projects.html">Projects</a>
-        <a href="services.html">Services</a>
-        <a href="value.html">Value</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-
-      <address class="footer-address">
-        <span>Avda. Josep Tarradellas 38, Barcelona 08029</span>
-        <a class="social-link" href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="Visit ADDEREIN on LinkedIn">
-          <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M5.1 8.7H1.8V22h3.3V8.7zm.2-4.1C5.3 3 4 1.8 2.4 1.8S-.5 3-.5 4.6c0 1.6 1.3 2.8 2.8 2.8h.1c1.7 0 2.9-1.2 2.9-2.8zM22.5 14.4c0-4.1-2.2-6-5.2-6-2.4 0-3.5 1.3-4.1 2.2V8.7h-3.3c.1 1.2 0 13.3 0 13.3h3.3v-7.4c0-.4 0-.8.1-1.1.3-.8 1-1.6 2.2-1.6 1.5 0 2.1 1.2 2.1 3v7h3.3v-7.5z" fill="currentColor"/>
-          </svg>
-          LinkedIn
-        </a>
-      </address>
+      <a href="contact.html" class="btn btn-primary">
+        <span data-i18n-en="Let's talk" data-i18n-es="Hablemos">Let's talk</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <button class="nav-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-    <p class="copyright">&copy; <span id="year"></span> ADDEREIN. All rights reserved.</p>
-  </footer>
+  </div>
+</header>
 
-  <script src="sources/js/main.js"></script>
+<main>
+
+<!-- ============================== 01 · HERO ============================== -->
+<section class="hero is-video-dark">
+  <div class="hero-video-stack" aria-hidden="true">
+    <div class="hero-video active">
+      <video muted loop playsinline autoplay preload="metadata">
+        <source src="videos/airport.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-overlay"></div>
+  </div>
+
+  <div class="container hero-inner">
+    <div class="reveal">
+      <span class="eyebrow"><span data-i18n-en="ADDEREIN · 01 / WHO WE ARE" data-i18n-es="ADDEREIN · 01 / QUIÉNES SOMOS">ADDEREIN · 01 / WHO WE ARE</span></span>
+    </div>
+    <h1 class="h1 reveal" data-delay="80"
+        data-i18n-en='Adding value at the <em class="accent">technological core</em> of your infrastructure.'
+        data-i18n-es='Sumando valor en el <em class="accent">núcleo tecnológico</em> de tu infraestructura.'>
+      Adding value at the <em class="accent">technological core</em> of your infrastructure.
+    </h1>
+    <p class="lead reveal" data-delay="160"
+       data-i18n-en="Communications, control and cybersecurity engineering for railway, airport and public-infrastructure environments. We design, integrate and secure the systems that sustain your operation."
+       data-i18n-es="Ingeniería de comunicaciones, control y ciberseguridad para entornos ferroviarios, aeroportuarios y de infraestructura pública. Diseñamos, integramos y aseguramos los sistemas que sostienen tu operación.">
+      Communications, control and cybersecurity engineering for railway, airport and public-infrastructure environments. We design, integrate and secure the systems that sustain your operation.
+    </p>
+    <div class="hero-ctas reveal" data-delay="240">
+      <a class="btn btn-primary" href="services.html">
+        <span data-i18n-en="See how we work" data-i18n-es="Conoce cómo trabajamos">See how we work</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="btn btn-ghost" href="contact.html">
+        <span data-i18n-en="Let's talk about your project" data-i18n-es="Hablemos de tu proyecto">Let's talk about your project</span>
+      </a>
+    </div>
+    <div class="hero-tagline reveal" data-delay="320">
+      <span class="plusmark" aria-hidden="true"><span>+</span></span>
+      <span data-i18n-en="ADDING VALUE TOGETHER" data-i18n-es="SUMANDO VALOR JUNTOS">ADDING VALUE TOGETHER</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 01b · TRUST STRIP ============================== -->
+<section class="trust-strip band-white">
+  <div class="container">
+    <div class="trust-roles reveal">
+      <span class="trust-label" data-i18n-en="WE WORK WITH" data-i18n-es="TRABAJAMOS CON">WE WORK WITH</span>
+      <span data-i18n-en="Main contractors" data-i18n-es="Contratistas principales">Main contractors</span>
+      <span data-i18n-en="Operators" data-i18n-es="Operadores">Operators</span>
+      <span data-i18n-en="Public administrations" data-i18n-es="Administraciones públicas">Public administrations</span>
+      <span data-i18n-en="Engineering firms" data-i18n-es="Ingenierías">Engineering firms</span>
+    </div>
+    <ul class="trust-names reveal" data-delay="100" aria-label="Selected projects and clients">
+      <li data-i18n-en="Riyadh Metro" data-i18n-es="Metro de Riad">Riyadh Metro</li>
+      <li>Jerusalem LRT</li>
+      <li data-i18n-en="Jorge Chávez Int. Airport" data-i18n-es="Aeropuerto Int. Jorge Chávez">Jorge Chávez Int. Airport</li>
+      <li data-i18n-en="Mexico City Metro" data-i18n-es="Metro de Ciudad de México">Mexico City Metro</li>
+      <li>Finch West LRT · Toronto</li>
+      <li>Port de Barcelona</li>
+      <li>Generalitat de Catalunya</li>
+      <li data-i18n-en="Murcia City Council" data-i18n-es="Ayuntamiento de Murcia">Murcia City Council</li>
+      <li>SEDAPAL</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== 02 · QUIÉNES SOMOS ============================== -->
+<section class="band-alt">
+  <div class="container">
+    <div class="split fig-even reveal">
+      <div class="split-text">
+        <header class="section-head">
+          <span class="eyebrow"><span data-i18n-en="02 / WHO WE ARE" data-i18n-es="02 / QUIÉNES SOMOS">02 / WHO WE ARE</span></span>
+          <h2 class="h2"
+              data-i18n-en='Engineers specialised in the <em class="accent alt">core of the business</em>.'
+              data-i18n-es='Ingenieros especializados en el <em class="accent alt">núcleo del negocio</em>.'>
+            Engineers specialised in the <em class="accent alt">core of the business</em>.
+          </h2>
+          <p data-i18n-en="We are a communications and control engineering company for transport and public-use infrastructure environments. Our team is made up of telecommunications engineers with broad experience and a high level of technical specialisation."
+             data-i18n-es="Somos una empresa de ingeniería en comunicaciones y control para entornos de transporte e infraestructuras de uso público. Nuestro equipo lo forman ingenieros de telecomunicaciones con amplia experiencia y un alto nivel de especialización técnica.">
+            We are a communications and control engineering company for transport and public-use infrastructure environments. Our team is made up of telecommunications engineers with broad experience and a high level of technical specialisation.
+          </p>
+          <p class="p-soft" data-i18n-en="We focus on what truly sustains our clients' business: the data centre, the communications network — wired and wireless — and cybersecurity. On that transversal IT infrastructure grow all the services and systems that give the operation its functionality."
+             data-i18n-es="Nos centramos en lo que de verdad sostiene el negocio de nuestros clientes: el centro de datos, la red de comunicaciones —cableada e inalámbrica— y la ciberseguridad. Sobre esa infraestructura IT transversal se construyen todos los servicios y sistemas que dan funcionalidad a la operación.">
+            We focus on what truly sustains our clients' business: the data centre, the communications network — wired and wireless — and cybersecurity. On that transversal IT infrastructure grow all the services and systems that give the operation its functionality.
+          </p>
+        </header>
+      </div>
+      <figure class="split-fig">
+        <img class="split-photo" src="img/blocks/team.png" alt="Senior telecommunications engineers collaborating in a technical control room" loading="lazy" />
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 03 · LO QUE NOS DIFERENCIA ============================== -->
+<section class="band-white">
+  <div class="container">
+    <header class="section-head reveal">
+      <span class="eyebrow"><span data-i18n-en="03 / WHY ADDEREIN" data-i18n-es="03 / POR QUÉ ADDEREIN">03 / WHY ADDEREIN</span></span>
+      <h2 class="h2"
+          data-i18n-en='What <em class="accent">sets us apart</em>.'
+          data-i18n-es='Lo que <em class="accent">nos diferencia</em>.'>
+        What <em class="accent">sets us apart</em>.
+      </h2>
+    </header>
+
+    <div class="value-grid reveal" data-delay="80">
+      <article class="compact-card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 4 6 4 9s-1 6-4 9c-3-3-4-6-4-9s1-6 4-9Z"/>
+        </svg>
+        <div class="c-body">
+          <div class="c-title" data-i18n-en="Knowledge of the environment" data-i18n-es="Conocimiento del entorno">Knowledge of the environment</div>
+          <p class="c-desc" data-i18n-en="We don't improvise in sectors we don't master. Our experience in rail, airports and public infrastructure lets us anticipate requirements and avoid expensive mistakes." data-i18n-es="No improvisamos en sectores que no dominamos. Nuestra experiencia en ferroviario, aeroportuario e infraestructura pública nos permite anticipar requisitos y evitar errores caros.">We don't improvise in sectors we don't master. Our experience in rail, airports and public infrastructure lets us anticipate requirements and avoid expensive mistakes.</p>
+        </div>
+        <span class="c-num">01</span>
+      </article>
+      <article class="compact-card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6h7M6 8.5v7M18 8.5v7M8.5 18h7"/>
+        </svg>
+        <div class="c-body">
+          <div class="c-title" data-i18n-en="End-to-end interface management" data-i18n-es="Gestión integral de interfaces">End-to-end interface management</div>
+          <p class="c-desc" data-i18n-en="We identify, assess, define and manage the interfaces between the many systems that coexist in an infrastructure. That is where cross-functionality and the maximum return on investment are won." data-i18n-es="Identificamos, evaluamos, definimos y gestionamos las interfaces entre los múltiples sistemas que conviven en una infraestructura. Es donde se consiguen funcionalidades cruzadas y el máximo aprovechamiento de la inversión.">We identify, assess, define and manage the interfaces between the many systems that coexist in an infrastructure. That is where cross-functionality and the maximum return on investment are won.</p>
+        </div>
+        <span class="c-num">02</span>
+      </article>
+      <article class="compact-card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <path d="M12 3l8 3v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-3Z"/><path d="M9 12l2 2 4-4"/>
+        </svg>
+        <div class="c-body">
+          <div class="c-title" data-i18n-en="360º cybersecurity" data-i18n-es="Ciberseguridad 360">360º cybersecurity</div>
+          <p class="c-desc" data-i18n-en="We strengthen the security of the systems that support the business with a complete solution — not just technological — built into every project." data-i18n-es="Reforzamos la seguridad de los sistemas que soportan el negocio con una solución completa, no solo tecnológica, integrada en cada proyecto.">We strengthen the security of the systems that support the business with a complete solution — not just technological — built into every project.</p>
+        </div>
+        <span class="c-num">03</span>
+      </article>
+      <article class="compact-card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <path d="M3 12h18M3 12l4-4M3 12l4 4M21 12l-4-4M21 12l-4 4"/>
+        </svg>
+        <div class="c-body">
+          <div class="c-title" data-i18n-en="Full life cycle" data-i18n-es="Ciclo de vida completo">Full life cycle</div>
+          <p class="c-desc" data-i18n-en="We're alongside you from the very beginning to final delivery — concept, design, integration and project management — as a single point of contact." data-i18n-es="Te acompañamos desde el inicio hasta la entrega final — concepto, diseño, integración y gestión de proyecto — como una sola interlocución.">We're alongside you from the very beginning to final delivery — concept, design, integration and project management — as a single point of contact.</p>
+        </div>
+        <span class="c-num">04</span>
+      </article>
+    </div>
+
+    <div class="reveal" data-delay="160" style="margin-top:28px;">
+      <a class="btn btn-ghost" href="services.html">
+        <span data-i18n-en="Discover our services" data-i18n-es="Descubre nuestros servicios">Discover our services</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 04 · NACIMOS PARA SUMAR ============================== -->
+<section class="band-alt">
+  <div class="container">
+    <header class="section-head reveal">
+      <span class="eyebrow"><span data-i18n-en="04 / OUR STORY" data-i18n-es="04 / NUESTRA HISTORIA">04 / OUR STORY</span></span>
+      <h2 class="h2"
+          data-i18n-en='Born <em class="accent alt">to add</em>.'
+          data-i18n-es='Nacimos <em class="accent alt">para sumar</em>.'>
+        Born <em class="accent alt">to add</em>.
+      </h2>
+      <p data-i18n-en="Adderein was born from a simple realisation: in large infrastructure projects, the hardest problems live at the interfaces — where many systems must meet and work as one — and that is exactly where the gaps appear. We created the company to fill those gaps: to add, from within, the engineering knowledge that acts as the glue holding every system together so the whole operation works."
+         data-i18n-es="Adderein nació de una idea clara: en los grandes proyectos de infraestructura, los problemas más difíciles están en las interfaces — donde muchos sistemas deben encontrarse y funcionar como uno — y es justo ahí donde aparecen los huecos. Creamos la empresa para llenar esos huecos: aportar, desde dentro, el conocimiento de ingeniería que actúa como el pegamento que mantiene unidos todos los sistemas para que la operación funcione.">
+        Adderein was born from a simple realisation: in large infrastructure projects, the hardest problems live at the interfaces — where many systems must meet and work as one — and that is exactly where the gaps appear. We created the company to fill those gaps: to add, from within, the engineering knowledge that acts as the glue holding every system together so the whole operation works.
+      </p>
+    </header>
+
+    <div class="name-lockup reveal" data-delay="80">
+      <div class="name-big" aria-label="Addere + In">
+        <span class="n-addere">Addere</span><span class="n-plus" aria-hidden="true">+</span><span class="n-in">In</span>
+      </div>
+      <p class="name-exp" data-i18n-en="As our name says, we exist to add value — from inside our clients' teams."
+         data-i18n-es="Como dice nuestro nombre, existimos para sumar valor — desde dentro de los equipos de nuestros clientes.">
+        As our name says, we exist to add value — from inside our clients' teams.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 05 · EXPERIENCIA ============================== -->
+<section class="band-white">
+  <div class="container">
+    <header class="section-head reveal">
+      <span class="eyebrow"><span data-i18n-en="05 / EXPERIENCE" data-i18n-es="05 / EXPERIENCIA">05 / EXPERIENCE</span></span>
+      <h2 class="h2"
+          data-i18n-en='Proven experience on <em class="accent">four continents</em>.'
+          data-i18n-es='Experiencia probada en <em class="accent">cuatro continentes</em>.'>
+        Proven experience on <em class="accent">four continents</em>.
+      </h2>
+      <p data-i18n-en="Metros, trams, airports and public infrastructure that carry our engineering — from Riyadh to Lima, from Toronto to Jerusalem."
+         data-i18n-es="Metros, tranvías, aeropuertos e infraestructuras públicas que llevan nuestra ingeniería — de Riad a Lima, de Toronto a Jerusalén.">
+        Metros, trams, airports and public infrastructure that carry our engineering — from Riyadh to Lima, from Toronto to Jerusalem.
+      </p>
+    </header>
+
+    <div class="exp-kpis cols-4 reveal" data-delay="60">
+      <div class="kpi"><div class="num">19<em>+</em></div><div class="label" data-i18n-en="PROJECTS" data-i18n-es="PROYECTOS">PROJECTS</div></div>
+      <div class="kpi"><div class="num">14</div><div class="label" data-i18n-en="COUNTRIES" data-i18n-es="PAÍSES">COUNTRIES</div></div>
+      <div class="kpi"><div class="num">4</div><div class="label" data-i18n-en="CONTINENTS" data-i18n-es="CONTINENTES">CONTINENTS</div></div>
+      <div class="kpi"><div class="num">3</div><div class="label" data-i18n-en="SECTORS" data-i18n-es="SECTORES">SECTORS</div></div>
+    </div>
+
+    <div class="project-grid cols-3" data-stagger="80" style="margin-top:40px;">
+      <article class="project-card">
+        <div class="project-image">
+          <img src="img/projects/riyadh-metro.jpg" alt="Riyadh Metro station and train" loading="lazy" />
+        </div>
+        <div class="project-body">
+          <div class="project-meta" data-i18n-en="Riyadh, Saudi Arabia" data-i18n-es="Riad, Arabia Saudí">Riyadh, Saudi Arabia</div>
+          <h3 data-i18n-en="Riyadh Metro - Lines 4, 5 and 6" data-i18n-es="Metro de Riad - Líneas 4, 5 y 6">Riyadh Metro - Lines 4, 5 and 6</h3>
+          <p data-i18n-en="Station LAN engineering: design criteria, architecture, specifications and BoQ."
+             data-i18n-es="Ingeniería de la LAN de estación: criterios de diseño, arquitectura, especificaciones y BoQ.">
+            Station LAN engineering: design criteria, architecture, specifications and BoQ.
+          </p>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="project-image">
+          <img src="img/projects/jorge-chavez-airport.jpg" alt="Jorge Chavez International Airport terminal" loading="lazy" />
+        </div>
+        <div class="project-body">
+          <div class="project-meta" data-i18n-en="Lima, Peru" data-i18n-es="Lima, Perú">Lima, Peru</div>
+          <h3 data-i18n-en="Jorge Chávez International Airport" data-i18n-es="Aeropuerto Internacional Jorge Chávez">Jorge Chávez International Airport</h3>
+          <p data-i18n-en="360º cybersecurity for critical systems and DAS mobile coverage across terminals."
+             data-i18n-es="Ciberseguridad 360 de los sistemas críticos y cobertura móvil DAS en las terminales.">
+            360º cybersecurity for critical systems and DAS mobile coverage across terminals.
+          </p>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="project-image">
+          <img src="img/projects/Isra.jpg" alt="Jerusalem light rail street scene" loading="lazy" />
+        </div>
+        <div class="project-body">
+          <div class="project-meta" data-i18n-en="Jerusalem, Israel" data-i18n-es="Jerusalén, Israel">Jerusalem, Israel</div>
+          <h3 data-i18n-en="Jerusalem LRT | Blue Line" data-i18n-es="Jerusalem LRT | Línea Azul">Jerusalem LRT | Blue Line</h3>
+          <p data-i18n-en="Design engineering for all communications systems and cybersecurity of the Blue Line."
+             data-i18n-es="Ingeniería de diseño de todos los sistemas de comunicaciones y la ciberseguridad de la Línea Azul.">
+            Design engineering for all communications systems and cybersecurity of the Blue Line.
+          </p>
+        </div>
+      </article>
+    </div>
+
+    <div class="reveal" data-delay="120" style="margin-top:28px;">
+      <a class="btn btn-ghost" href="experience.html">
+        <span data-i18n-en="See all our projects" data-i18n-es="Ver todos nuestros proyectos">See all our projects</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 06 · CTA CONTACTO ============================== -->
+<section class="band-alt">
+  <div class="container">
+    <div class="cta-band reveal">
+      <div>
+        <h2 class="h2"
+            data-i18n-en='Shall we talk about <em class="accent">your next project</em>?'
+            data-i18n-es='¿Hablamos de tu <em class="accent">próximo proyecto</em>?'>
+          Shall we talk about <em class="accent">your next project</em>?
+        </h2>
+      </div>
+      <a class="btn btn-primary" href="contact.html">
+        <span data-i18n-en="Contact us" data-i18n-es="Contactar">Contact us</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="index.html" aria-label="addere+In — home">
+          <div class="brand-mark">
+            <img class="brand-logo" src="img/logo-full.png" alt="Adderein" />
+          </div>
+        </a>
+        <p class="footer-tag"
+           data-i18n-en='Communications, control &amp; cybersecurity engineering for railway, airport and public-infrastructure environments. <em>Adding value together.</em>'
+           data-i18n-es='Ingeniería de comunicaciones, control y ciberseguridad para entornos ferroviarios, aeroportuarios y de infraestructura pública. <em>Sumando valor juntos.</em>'>
+          Communications, control &amp; cybersecurity engineering for railway, airport and public-infrastructure environments. <em>Adding value together.</em>
+        </p>
+      </div>
+      <div>
+        <h4 data-i18n-en="Navigate" data-i18n-es="Navegación">Navigate</h4>
+        <ul>
+          <li><a href="index.html" data-i18n-en="About Us" data-i18n-es="Nosotros">About Us</a></li>
+          <li><a href="technology.html" data-i18n-en="Technology" data-i18n-es="Tecnología">Technology</a></li>
+          <li><a href="cybersecurity.html" data-i18n-en="Cybersecurity" data-i18n-es="Ciberseguridad">Cybersecurity</a></li>
+          <li><a href="services.html" data-i18n-en="Services" data-i18n-es="Servicios">Services</a></li>
+          <li><a href="experience.html" data-i18n-en="Experience" data-i18n-es="Experiencia">Experience</a></li>
+          <li><a href="contact.html" data-i18n-en="Contact" data-i18n-es="Contacto">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-i18n-en="Reach us" data-i18n-es="Contacto">Reach us</h4>
+        <div class="footer-info">
+          <div data-i18n-en="Barcelona · Madrid · Spain" data-i18n-es="Barcelona · Madrid · España">Barcelona · Madrid · Spain</div>
+          <div><a href="mailto:adderein@adderein.com">adderein@adderein.com</a></div>
+          <div><a href="https://www.linkedin.com/company/adderein" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-i18n-en="© 2026 ADDEREIN · ALL RIGHTS RESERVED" data-i18n-es="© 2026 ADDEREIN · TODOS LOS DERECHOS RESERVADOS">© 2026 ADDEREIN · ALL RIGHTS RESERVED</span>
+      <div class="footer-legal">
+        <a href="legal.html" data-i18n-en="Legal notice" data-i18n-es="Aviso legal">Legal notice</a>
+        <span>·</span>
+        <a href="privacy.html" data-i18n-en="Privacy policy" data-i18n-es="Política de privacidad">Privacy policy</a>
+      </div>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" class="is-active">EN</button>
+        <span>/</span>
+        <button type="button" data-lang="es">ES</button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/site.js?v=5" defer></script>
 </body>
 </html>
-

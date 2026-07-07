@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Adderein · Defence in depth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400..800&family=Inter+Tight:wght@400;500;600;700&display=swap" />
+<style>
+  :root{
+    --text:#0E1410;--text-muted:#5B6360;
+    --green:#1FA34F;--green-dark:#11703A;--green-line:rgba(31,163,79,.22);
+    --f-display:"Bricolage Grotesque","Inter Tight",system-ui,sans-serif;
+    --f-body:"Inter Tight",system-ui,sans-serif;
+    --ease:cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;background:transparent;}
+  body{font-family:var(--f-body);color:var(--text);
+       display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  svg{width:100%;height:100%;}
+
+  /* rings + legend ease in once, outer -> inner */
+  .ring,.leg{opacity:0;animation:fade .6s var(--ease) forwards;}
+  .ring{transform-box:fill-box;transform-origin:center;transform:scale(.96);}
+  @keyframes fade{to{opacity:1;transform:scale(1);}}
+
+  .lname{font-family:var(--f-display);font-weight:700;font-size:19px;letter-spacing:-.01em;fill:var(--text);}
+  .ldesc{font-family:var(--f-body);font-weight:500;font-size:13.5px;fill:var(--text-muted);}
+  .core-t{font-family:var(--f-display);font-weight:700;font-size:18px;letter-spacing:.03em;fill:#fff;}
+  .cap{font-family:var(--f-body);font-weight:600;font-size:15px;letter-spacing:.01em;fill:var(--text-muted);}
+
+  @media (prefers-reduced-motion: reduce){ .ring,.leg{animation:none;opacity:1;transform:none;} }
+  @media print{ .ring,.leg{animation:none !important;opacity:1 !important;transform:none !important;} }
+</style>
+</head>
+<body>
+  <svg id="viz" viewBox="0 0 1280 720" role="img" aria-label="Defence in depth shown as concentric security levels — physical, perimeter, network, host and application — wrapping the data and operation at the core. If one level is bypassed, the next still holds.">
+    <defs>
+      <radialGradient id="coreg" cx="38%" cy="30%" r="85%">
+        <stop offset="0%" stop-color="#2BC067"/>
+        <stop offset="58%" stop-color="#11703A"/>
+        <stop offset="100%" stop-color="#0B4A26"/>
+      </radialGradient>
+      <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+        <feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#0E1410" flood-opacity="0.14"/>
+      </filter>
+    </defs>
+
+    <!-- monitoring boundary around the whole stack -->
+    <circle cx="905" cy="358" r="276" fill="none" stroke="var(--green-line)" stroke-width="1.5" stroke-dasharray="2 10"/>
+
+    <g id="rings"></g>
+    <g id="core">
+      <circle cx="905" cy="358" r="50" fill="url(#coreg)" filter="url(#soft)" class="ring" style="animation-delay:.55s"/>
+      <g class="ring" style="animation-delay:.62s" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="891" y="354" width="28" height="20" rx="4" fill="rgba(255,255,255,.10)"/>
+        <path d="M896,354 v-5 a9,9 0 0 1 18,0 v5" transform="translate(-1,0)"/>
+        <circle cx="905" cy="364" r="2.4" fill="#fff" stroke="none"/>
+      </g>
+      <text id="coreT" class="core-t" x="905" y="400" text-anchor="middle">DATA</text>
+    </g>
+
+    <g id="legend"></g>
+
+    <text id="cap" class="cap" x="640" y="694" text-anchor="middle">Continuously monitored — if one level is bypassed, the next still holds</text>
+  </svg>
+
+<script>
+(function(){
+  var NS="http://www.w3.org/2000/svg";
+  var cx=905, cy=358;
+
+  // outer -> inner
+  var L=[
+    {r:250, fill:"#ECF6EF", sw:"#CDE7D6",
+     t:{en:"Physical",    es:"Físico"},      d:{en:"Site, fences & rooms",       es:"Emplazamiento, vallado y salas"}},
+    {r:206, fill:"#D2EBDB", sw:"#A9D9BA",
+     t:{en:"Perimeter",   es:"Perímetro"},   d:{en:"Firewalls & gateways",        es:"Cortafuegos y pasarelas"}},
+    {r:164, fill:"#AFDCC0", sw:"#7FC79B",
+     t:{en:"Network",     es:"Red"},          d:{en:"Segmentation & monitoring",   es:"Segmentación y monitorización"}},
+    {r:124, fill:"#7BC395", sw:"#4FB077",
+     t:{en:"Host",        es:"Host"},         d:{en:"Servers, endpoints & PLCs",   es:"Servidores, equipos y PLCs"}},
+    {r:86,  fill:"#38A05F", sw:"#2A9456",
+     t:{en:"Application",  es:"Aplicación"},  d:{en:"Software & interfaces",        es:"Software e interfaces"}},
+    {core:true, sw:"#11703A",
+     t:{en:"Data",        es:"Datos"},        d:{en:"Encryption & access",          es:"Cifrado y acceso"}}
+  ];
+  var CORE={en:"DATA",es:"DATOS"};
+  var CAP={en:"Continuously monitored — if one level is bypassed, the next still holds",
+           es:"Monitorización continua — si un nivel se sortea, el siguiente sigue en pie"};
+
+  function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
+
+  // ---- concentric rings (outer -> inner) ----
+  var gR=document.getElementById("rings");
+  L.forEach(function(s,i){
+    if(s.core) return;
+    var c=el("circle",{cx:cx,cy:cy,r:s.r,fill:s.fill,stroke:"#FFFFFF","stroke-width":3});
+    c.setAttribute("class","ring"); c.style.animationDelay=(i*0.11)+"s";
+    gR.appendChild(c);
+  });
+
+  // ---- legend (left), evenly spaced — never overlaps ----
+  var gL=document.getElementById("legend");
+  var lx=78, tx=108, startY=96, pitch=92;
+  var texts=[];
+  L.forEach(function(s,i){
+    var y=startY+i*pitch;
+    var g=el("g",{}); g.setAttribute("class","leg"); g.style.animationDelay=(0.2+i*0.08)+"s";
+    g.appendChild(el("circle",{cx:lx,cy:y-4,r:11,fill:s.sw,stroke:"#FFFFFF","stroke-width":2}));
+    var nm=el("text",{x:tx,y:y-2}); nm.setAttribute("class","lname"); nm.textContent=s.t.en;
+    var ds=el("text",{x:tx,y:y+18}); ds.setAttribute("class","ldesc"); ds.textContent=s.d.en;
+    g.appendChild(nm); g.appendChild(ds); gL.appendChild(g);
+    texts.push({el:nm,obj:s.t}); texts.push({el:ds,obj:s.d});
+  });
+
+  // ---- language ----
+  var coreT=document.getElementById("coreT"), cap=document.getElementById("cap");
+  function setLang(lang){
+    if(lang!=="en"&&lang!=="es") lang="en";
+    document.documentElement.setAttribute("lang",lang);
+    texts.forEach(function(t){ t.el.textContent=t.obj[lang]; });
+    coreT.textContent=CORE[lang]; cap.textContent=CAP[lang];
+  }
+  var LANG_KEY="adderein-lang", lang="en";
+  try{var st=localStorage.getItem(LANG_KEY); if(st==="en"||st==="es") lang=st;}catch(e){}
+  setLang(lang);
+  window.addEventListener("storage",function(e){if(e.key===LANG_KEY)setLang(e.newValue);});
+})();
+</script>
+</body>
+</html>

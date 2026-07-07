@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Adderein · Engineering core + capabilities</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400..800&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+<style>
+  :root{
+    --surface:#FFFFFF;--border:#E5E7E2;
+    --text:#0E1410;--text-muted:#5B6360;--text-faint:#9CA39E;
+    --green:#1FA34F;--green-bright:#29C25F;--green-dark:#11703A;--green-deep:#0B4A26;
+    --green-soft:#E6F4EA;--green-line:rgba(31,163,79,.22);
+    --layer:#EDEFEA;--layer-line:#DDE1D9;
+    --f-display:"Bricolage Grotesque","Inter Tight",system-ui,sans-serif;
+    --f-mono:"JetBrains Mono",monospace;
+    --ease:cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;background:transparent;}
+  body{font-family:var(--f-display);color:var(--text);
+       display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  svg{width:100%;height:100%;}
+
+  #beam{transform-box:fill-box;transform-origin:bottom center;transform:scaleY(0);
+        animation:grow .9s var(--ease) .2s forwards;}
+  @keyframes grow{to{transform:scaleY(1)}}
+  .cap{opacity:0;transform:translateX(20px);
+       animation:slide .55s var(--ease) forwards;}
+  @keyframes slide{to{opacity:1;transform:translateX(0)}}
+  .conn{opacity:0;animation:fade .4s ease forwards;}
+  @keyframes fade{to{opacity:1}}
+  #cover{opacity:0;animation:fade .6s ease 1.5s forwards;}
+
+  .beam-l{font-family:var(--f-mono);font-weight:600;font-size:17px;letter-spacing:.18em;
+          text-transform:uppercase;fill:var(--text-muted);}
+  .cap-l{font-family:var(--f-display);font-weight:700;font-size:18px;letter-spacing:-.01em;fill:var(--text);}
+  .cov-l{font-family:var(--f-mono);font-weight:500;font-size:15px;letter-spacing:.2em;
+         text-transform:uppercase;fill:var(--green-dark);}
+
+  @media (prefers-reduced-motion: reduce){
+    #beam{animation:none;transform:scaleY(1);}
+    .cap,.conn,#cover{animation:none;opacity:1;transform:none;}
+  }
+  @media print{
+    #beam{animation:none !important;transform:scaleY(1) !important;}
+    .cap,.conn,#cover{animation:none !important;opacity:1 !important;transform:none !important;}
+  }
+</style>
+</head>
+<body>
+  <svg id="viz" viewBox="0 0 520 440" role="img" aria-label="Engineering at the core, with the capabilities a project needs attached to it — sales support, technology, vendors and market, consultancy and project management — all under cybersecurity.">
+    <defs>
+      <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+        <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0E1410" flood-opacity="0.09"/>
+      </filter>
+    </defs>
+
+    <!-- cybersecurity cover (label + bracket over the capabilities) -->
+    <g id="cover"></g>
+    <!-- engineering core beam (left) -->
+    <g id="beamG"></g>
+    <!-- connectors -->
+    <g id="conns"></g>
+    <!-- capability boxes (right) -->
+    <g id="caps"></g>
+  </svg>
+
+<script>
+(function(){
+  var NS="http://www.w3.org/2000/svg";
+  function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
+
+  var caps=[
+    {en:"Sales support",      es:"Soporte a la venta"},
+    {en:"Technology",         es:"Tecnología"},
+    {en:"Vendors & market",   es:"Vendors y mercado"},
+    {en:"Consultancy",        es:"Consultoría"},
+    {en:"Project management", es:"Gestión de proyectos"}
+  ];
+
+  // geometry
+  var BX=44, BW=72, BTOP=96, BBOT=406;            // engineering beam
+  var CX=150, CW=336, CH=46, GAP=15, TOP=98;       // capability boxes
+  var beamMidY=(BTOP+BBOT)/2;
+
+  // ---- engineering beam ----
+  var bg=document.getElementById("beamG");
+  var beam=el("g",{id:"beam"});
+  beam.appendChild(el("rect",{x:BX,y:BTOP,width:BW,height:BBOT-BTOP,rx:12,
+    fill:"var(--layer)",stroke:"var(--layer-line)","stroke-width":1.8,filter:"url(#soft)"}));
+  var bt=el("text",{x:BX+BW/2,y:beamMidY,"text-anchor":"middle",
+    transform:"rotate(-90 "+(BX+BW/2)+" "+beamMidY+")"});
+  bt.setAttribute("class","beam-l"); bt.textContent="ENGINEERING"; beam.appendChild(bt);
+  bg.appendChild(beam); window._beamLabel=bt;
+
+  // ---- capability boxes + connectors ----
+  var gc=document.getElementById("caps"), gn=document.getElementById("conns");
+  caps.forEach(function(c,i){
+    var y=TOP+i*(CH+GAP);
+    // connector from beam to box
+    var cn=el("line",{x1:BX+BW,y1:y+CH/2,x2:CX,y2:y+CH/2,
+      stroke:"var(--green-line)","stroke-width":2}); cn.setAttribute("class","conn");
+    cn.style.animationDelay=(0.5+i*0.16)+"s"; gn.appendChild(cn);
+    // box
+    var g=el("g",{}); g.setAttribute("class","cap"); g.style.animationDelay=(0.55+i*0.16)+"s";
+    g.appendChild(el("rect",{x:CX,y:y,width:CW,height:CH,rx:9,
+      fill:"var(--layer)",stroke:"var(--green)","stroke-width":1.8,filter:"url(#soft)"}));
+    g.appendChild(el("circle",{cx:CX+22,cy:y+CH/2,r:4.5,fill:"var(--green)"}));
+    var t=el("text",{x:CX+40,y:y+CH/2+6,"text-anchor":"start"}); t.setAttribute("class","cap-l");
+    g.appendChild(t); c.tEl=t; gc.appendChild(g);
+  });
+
+  // ---- cybersecurity cover ----
+  var capsBot=TOP+caps.length*(CH+GAP)-GAP;
+  var cov=document.getElementById("cover");
+  // bracket line above the capability stack
+  cov.appendChild(el("path",{d:"M"+CX+",84 v-10 h"+CW+" v10",fill:"none",
+    stroke:"var(--green)","stroke-width":2,"stroke-linecap":"round","stroke-linejoin":"round"}));
+  var covT=el("text",{x:CX+CW/2,y:60,"text-anchor":"middle"}); covT.setAttribute("class","cov-l");
+  covT.textContent="CYBERSECURITY"; cov.appendChild(covT); window._covLabel=covT;
+
+  // ---- language ----
+  var LABS={ beam:{en:"ENGINEERING",es:"INGENIERÍA"}, cov:{en:"CYBERSECURITY",es:"CIBERSEGURIDAD"} };
+  function setLang(lang){
+    if(lang!=="en"&&lang!=="es") lang="en";
+    document.documentElement.setAttribute("lang",lang);
+    caps.forEach(function(c){ c.tEl.textContent=c[lang]; });
+    window._beamLabel.textContent=LABS.beam[lang];
+    window._covLabel.textContent=LABS.cov[lang];
+  }
+  var LK="adderein-lang", lang="en";
+  try{var st=localStorage.getItem(LK); if(st==="en"||st==="es") lang=st;}catch(e){}
+  setLang(lang);
+  window.addEventListener("storage",function(e){if(e.key===LK)setLang(e.newValue);});
+})();
+</script>
+</body>
+</html>

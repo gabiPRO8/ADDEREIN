@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Adderein · A backbone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400..800&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+<style>
+  :root{
+    --surface:#FFFFFF;--border:#E5E7E2;
+    --text:#0E1410;--text-muted:#5B6360;--text-faint:#9CA39E;
+    --green:#1FA34F;--green-bright:#29C25F;--green-dark:#11703A;--green-deep:#0B4A26;
+    --green-soft:#E6F4EA;--green-line:rgba(31,163,79,.20);
+    --layer:#EDEFEA;--layer-line:#DDE1D9;
+    --f-display:"Bricolage Grotesque","Inter Tight",system-ui,sans-serif;
+    --f-mono:"JetBrains Mono",monospace;
+    --ease:cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;background:transparent;}
+  body{font-family:var(--f-display);color:var(--text);
+       display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  svg{width:100%;height:100%;}
+
+  .layerbar{opacity:0;animation:fade .5s ease forwards;}
+  @keyframes fade{to{opacity:1}}
+  /* a vertical backbone grows down through every layer */
+  #axisBar{transform-box:fill-box;transform-origin:50% 0%;
+           transform:scaleY(0);animation:grow 1.7s var(--ease) .55s forwards;}
+  @keyframes grow{to{transform:scaleY(1)}}
+  #axisNode{transform-box:fill-box;transform-origin:center;opacity:0;
+            transform:scale(.4);animation:pop .55s cubic-bezier(.34,1.4,.5,1) 1.9s forwards;}
+  @keyframes pop{to{opacity:1;transform:scale(1)}}
+
+  .lab{font-family:var(--f-mono);font-weight:500;font-size:16px;letter-spacing:.22em;
+       text-transform:uppercase;fill:var(--green-dark);}
+  .sub{font-family:var(--f-display);font-weight:500;font-size:16px;fill:var(--text-muted);}
+
+  @media (prefers-reduced-motion: reduce){
+    .layerbar{animation:none;opacity:1;}
+    #axisBar{animation:none;transform:scaleY(1);}
+    #axisNode{animation:none;opacity:1;transform:scale(1);}
+  }
+  /* printed fully drawn (complete state) */
+  @media print{
+    .layerbar{animation:none !important;opacity:1 !important;}
+    #axisBar{animation:none !important;transform:scaleY(1) !important;}
+    #axisNode{animation:none !important;opacity:1 !important;transform:scale(1) !important;}
+  }
+</style>
+</head>
+<body>
+  <svg id="viz" viewBox="0 0 440 360" role="img" aria-label="Security as a backbone running vertically through every layer of the system, anchored at its heart.">
+    <defs>
+      <radialGradient id="nuc" cx="36%" cy="28%" r="80%">
+        <stop offset="0%" stop-color="#3FD877"/>
+        <stop offset="52%" stop-color="#1FA34F"/>
+        <stop offset="100%" stop-color="#0B4A26"/>
+      </radialGradient>
+      <filter id="soft" x="-60%" y="-60%" width="220%" height="220%">
+        <feDropShadow dx="0" dy="4" stdDeviation="7" flood-color="#0E1410" flood-opacity="0.12"/>
+      </filter>
+    </defs>
+
+    <g id="stack"></g>
+    <g id="axis"></g>
+
+    <text id="labR" class="lab" x="220" y="300" text-anchor="middle">A BACKBONE</text>
+    <text id="subR" class="sub" x="220" y="328" text-anchor="middle">Runs through every layer</text>
+  </svg>
+
+<script>
+(function(){
+  var NS="http://www.w3.org/2000/svg";
+  function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
+
+  var CX=220, LW=240, LH=34, GAP=14, N=4, TOP=60;
+  var stackBot = TOP+(N-1)*(LH+GAP)+LH;
+
+  // the system, as a stack of layers
+  var s=document.getElementById("stack");
+  for(var i=0;i<N;i++){
+    var r=el("rect",{x:CX-LW/2,y:TOP+i*(LH+GAP),width:LW,height:LH,rx:8,
+      fill:"var(--layer)",stroke:"var(--layer-line)","stroke-width":1.5});
+    r.setAttribute("class","layerbar"); r.style.animationDelay=(i*0.12)+"s";
+    s.appendChild(r);
+  }
+
+  // the backbone: a vertical axis through all the layers + a locked core at its heart
+  var axis=document.getElementById("axis");
+  var aTop=TOP-24, aH=stackBot-aTop+24;
+  axis.appendChild(el("rect",{id:"axisBar",x:CX-14,y:aTop,width:28,height:aH,rx:14,fill:"url(#nuc)"}));
+  var ny=(aTop+stackBot)/2;
+  var node=el("g",{id:"axisNode"});
+  node.appendChild(el("circle",{cx:CX,cy:ny,r:30,fill:"url(#nuc)",stroke:"rgba(255,255,255,.30)","stroke-width":1.5,filter:"url(#soft)"}));
+  node.appendChild(el("rect",{x:CX-10,y:ny-2,width:20,height:15,rx:3,fill:"#fff"}));
+  node.appendChild(el("path",{d:"M"+(CX-6)+","+(ny-2)+" v-4 a6,6 0 0 1 12,0 v4",fill:"none",stroke:"#fff","stroke-width":2.6}));
+  node.appendChild(el("circle",{cx:CX,cy:ny+5,r:2.2,fill:"var(--green-dark)"}));
+  axis.appendChild(node);
+
+  // language
+  var T={ labR:{en:"A BACKBONE",es:"COLUMNA VERTEBRAL"},
+          subR:{en:"Runs through every layer",es:"Atraviesa todas las capas"} };
+  function setLang(lang){
+    if(lang!=="en"&&lang!=="es") lang="en";
+    document.documentElement.setAttribute("lang",lang);
+    for(var id in T){ document.getElementById(id).textContent=T[id][lang]; }
+  }
+  var LK="adderein-lang", lang="en";
+  try{var st=localStorage.getItem(LK); if(st==="en"||st==="es") lang=st;}catch(e){}
+  setLang(lang);
+  window.addEventListener("storage",function(e){if(e.key===LK)setLang(e.newValue);});
+})();
+</script>
+</body>
+</html>
