@@ -32,6 +32,20 @@
     reveals.forEach((el) => el.classList.add('is-in'));
   }
 
+  // ----- last updated stamp (single source of truth) -----
+  const LAST_UPDATED = '2026-07-21'; // update when the site changes
+
+  function applyLastUpdated(lang) {
+    const el = document.querySelector('.footer-updated');
+    if (!el) return;
+    const d = new Date(LAST_UPDATED + 'T00:00:00');
+    if (isNaN(d)) return;
+    const es = lang === 'es';
+    const date = d.toLocaleDateString(es ? 'es-ES' : 'en-GB',
+      { day: 'numeric', month: 'short', year: 'numeric' });
+    el.textContent = (es ? 'Última actualización: ' : 'Last updated: ') + date;
+  }
+
   // ----- language toggle scaffold -----
   const LANG_KEY = 'adderein-lang';
   const validLangs = ['en', 'es'];
@@ -47,6 +61,7 @@
     document.querySelectorAll('.lang button').forEach((b) => {
       b.classList.toggle('is-active', b.dataset.lang === lang);
     });
+    applyLastUpdated(lang);
     localStorage.setItem(LANG_KEY, lang);
   }
   applyLang(initial);

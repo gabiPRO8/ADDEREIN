@@ -72,7 +72,7 @@
 </style>
 </head>
 <body>
-  <svg id="viz" viewBox="0 0 1280 720" role="img" aria-label="A continuous cycle of how we work — 01 Understand, 02 Define architecture and functionalities, 03 Integrate, 04 Accompany — with cybersecurity at the centre, securing every step of the process.">
+  <svg id="viz" viewBox="0 0 1280 720" role="img" aria-label="A continuous cycle of how we work — 1 Understand, 2 Define architecture and functionalities, 3 Integrate, 4 Accompany — with cybersecurity at the centre, securing every step of the process.">
     <defs>
       <radialGradient id="nuc" cx="36%" cy="30%" r="78%">
         <stop offset="0%" stop-color="#3FD877"/>
@@ -197,7 +197,7 @@
   });
 
   // ---- language ----
-  function pad(i){return (i+1<10?"0":"")+(i+1);}
+  function pad(i){return String(i+1);}
   var coreLab=document.getElementById("coreLab"), coreSub=document.getElementById("coreSub");
   var CORE_LAB={en:"CYBERSECURITY", es:"CIBERSEGURIDAD"};
   var CORE_SUB={en:"Across the whole process", es:"En todo el proceso"};
