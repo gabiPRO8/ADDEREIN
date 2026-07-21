@@ -1849,6 +1849,16 @@ section.trust-strip {
   position: relative;
   z-index: 1;
 }
+.footer-copy {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.footer-updated {
+  color: rgba(213, 217, 214, 0.4);
+  text-transform: none;
+  letter-spacing: 0.12em;
+}
 .footer-legal {
   display: inline-flex;
   align-items: center;
@@ -1925,6 +1935,24 @@ section.trust-strip {
   .nav-burger { display: inline-flex; }
   .nav-right .btn { display: none; }        /* CTA lives inside the menu on mobile */
   .nav-panel { display: none !important; }  /* desktop hover panels never on mobile */
+
+  /* mobile: keep the bar light at all times — no dark→light inversion on scroll */
+  .nav,
+  .nav.is-scrolled {
+    background: rgba(255, 255, 255, 0.98);
+    border-bottom-color: var(--border);
+    box-shadow: 0 10px 24px -18px rgba(11, 74, 38, 0.35);
+  }
+  .nav .brand-logo { filter: none; }
+  .nav-links a { color: var(--green-dark); }
+  .nav .nav-burger { border-color: var(--border); }
+  .nav .nav-burger span { background: var(--green-dark); }
+  .nav .lang {
+    color: var(--text-muted);
+    border-color: var(--border);
+    background: var(--surface);
+  }
+  .nav .lang button.is-active { color: var(--green-dark); }
 
   /* open state: nav goes solid, links become a full-height sheet */
   .nav.menu-open {
